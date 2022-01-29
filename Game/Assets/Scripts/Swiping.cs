@@ -49,6 +49,10 @@ public class Swiping : MonoBehaviour
                     {
                         killable.DealDamage(3, hitData.point, rayDirection, 150.0f);
                         // hitParticles.Play();
+                        bool targetDied = killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
+                        if (host.IsPlayer && targetDied) {
+                            PlayerAlignment.main.MoveAlignment(host, killable.gameObject);
+                        }
                     }
                 }
             }

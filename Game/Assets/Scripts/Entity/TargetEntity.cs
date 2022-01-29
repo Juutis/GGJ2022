@@ -41,6 +41,9 @@ public class TargetEntity : MonoBehaviour
     private void Start()
     {
         Initialize();
+        if (isPlayer) {
+            UICurrentFaction.main.SetFaction(targetType);
+        }
     }
 
     public void Initialize()
@@ -130,6 +133,7 @@ public class TargetEntity : MonoBehaviour
     public void SetPlayerTargetType(TargetEntityType type)
     {
         targetType = type;
+        UICurrentFaction.main.SetFaction(type);
     }
 
 }
