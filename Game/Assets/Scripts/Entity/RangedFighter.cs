@@ -16,10 +16,16 @@ public class RangedFighter : MonoBehaviour
     private bool firing = false;
     private Vector3 lastKnownTargetPos;
 
+    private bool alive = true;
+
     // Start is called before the first frame update
     void Start()
     {
         charAnim = GetComponentInChildren<CharacterAnimator>();
+    }
+
+    public void Die() {
+        alive = false;
     }
 
     // Update is called once per frame
@@ -54,6 +60,8 @@ public class RangedFighter : MonoBehaviour
     }
 
     public void Fire() {
+        if (!alive) return;
+
         firing = false;
 
         Vector3 rayOrigin = transform.position;

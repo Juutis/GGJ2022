@@ -10,6 +10,18 @@ public class Shooting : MonoBehaviour
     private Camera playerCamera;
     private TargetEntity host;
 
+    [SerializeField]
+    private int pellets = 8;
+
+    [SerializeField]
+    private float inaccuracyAngle = 10;
+
+    [SerializeField]
+    private float dispersionAngle = 5;
+
+    [SerializeField]
+    private ParticleSystem hitEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,26 +30,42 @@ public class Shooting : MonoBehaviour
 
     public void Shoot()
     {
-        particles.Play();
+        //particles.Play();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
-        RaycastHit hitData;
-        var rayDirection = playerCamera.transform.forward;
-        bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData);
 
-        if (hit)
-        {
-            if (hitData.collider != null)
+        var aimDir = playerCamera.transform.forward;
+        var randomAimDir = Quaternion.AngleAxis(Random.Range(0, inaccuracyAngle), playerCamera.transform.up) * aimDir;
+        var rayBaseDirection = Quaternion.AngleAxis(Random.Range(0, 360), aimDir) * randomAimDir;
+
+        for (var i = 0; i < pellets; i++) {
+
+            Debug.Log("raycasting " + i + " " + pellets);
+
+            RaycastHit hitData;
+            
+            var dispersedDir = Quaternion.AngleAxis(Random.Range(0, dispersionAngle), playerCamera.transform.up) * rayBaseDirection;
+            var rayDirection = Quaternion.AngleAxis(Random.Range(0, 360), rayBaseDirection) * dispersedDir;
+
+            bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData);
+
+            if (hit)
             {
-                TargetEntity targetEntity = hitData.collider.gameObject.GetComponentInParent<TargetEntity>();
-                
-                if (targetEntity == null) return;
-                if (targetEntity.TargetType != host.TargetType)
+                var effect = Instantiate(hitEffect);
+                effect.transform.position = hitData.point;
+
+                if (hitData.collider != null)
                 {
-                    GameObject target = hitData.collider.gameObject;
-                    Killable killable = target.GetComponentInParent<Killable>();
-                    if (killable != null)
+                    TargetEntity targetEntity = hitData.collider.gameObject.GetComponentInParent<TargetEntity>();
+                    
+                    if (targetEntity == null) continue;
+                    if (targetEntity.TargetType != host.TargetType)
                     {
-                        killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
+                        GameObject target = hitData.collider.gameObject;
+                        Killable killable = target.GetComponentInParent<Killable>();
+                        if (killable != null)
+                        {
+                            killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
+                        }
                     }
                 }
             }
