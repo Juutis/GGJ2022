@@ -37,7 +37,7 @@ public class FollowPosition : MonoBehaviour
             if (FollowY) {
                 newPos.y = target.position.y;
             }
-            if (FollowY) {
+            if (FollowZ) {
                 newPos.z = target.position.z;
             }
             transform.position = newPos;

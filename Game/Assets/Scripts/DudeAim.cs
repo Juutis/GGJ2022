@@ -6,7 +6,8 @@ public class DudeAim : MonoBehaviour
 {
     public Animator anim;
 
-    public Transform target;
+    private Vector3 target;
+    private bool aim;
 
     // Start is called before the first frame update
     void Start()
@@ -23,17 +24,17 @@ public class DudeAim : MonoBehaviour
     void OnAnimatorIK()
     {
         // Set the look target position, if one has been assigned
-        if(target != null) {
+        if(aim) {
 
-            var targetDir = target.position - transform.position;
+            var targetDir = target - transform.position;
             var aimRotation = Quaternion.LookRotation(targetDir, Vector3.up);
 
             anim.SetLookAtWeight(1);
-            anim.SetLookAtPosition(target.position);
+            anim.SetLookAtPosition(target);
             
             anim.SetIKPositionWeight(AvatarIKGoal.RightHand,1);
             anim.SetIKRotationWeight(AvatarIKGoal.RightHand,1);  
-            anim.SetIKPosition(AvatarIKGoal.RightHand, target.position);
+            anim.SetIKPosition(AvatarIKGoal.RightHand, target);
             anim.SetIKRotation(AvatarIKGoal.RightHand, aimRotation);
         }    
         
@@ -43,5 +44,13 @@ public class DudeAim : MonoBehaviour
             anim.SetIKRotationWeight(AvatarIKGoal.RightHand,0); 
             anim.SetLookAtWeight(0);
         }
-    }    
+    }
+
+    public void SetTarget(Vector3 target) {
+        this.target = target;
+    }
+
+    public void SetAiming(bool aiming) {
+        this.aim = aiming;
+    }
 }

@@ -15,11 +15,14 @@ public class Killable : MonoBehaviour
 
     private Ragdollizer ragdoll;
 
+    private bool IsEnabled = true;
+
     // Start is called before the first frame update
     void Start()
     {
         host = GetComponent<TargetEntity>();
         currentHp = config.MaxHP;
+        UpdateHealthBar();
 
         materials = new List<Material>(GetComponentsInChildren<SkinnedMeshRenderer>().SelectMany(skin => skin.materials.ToList()));
 
@@ -36,20 +39,34 @@ public class Killable : MonoBehaviour
     {
     }
 
-    private void Die() {
+    public void Die() {
         TargetEntityManager.main.KillTarget(host);
+        IsEnabled = false;
     }
 
-    public void DealDamage(float amount, Vector3 hitPosition, Vector3 hitDirection, float forceAmount)
+    public bool DealDamage(float amount, Vector3 hitPosition, Vector3 hitDirection, float forceAmount)
     {
+        if (!IsEnabled) {
+            return false;
+        }
+        bool hostDied = false;
         currentHp -= amount;
         materials.ForEach(x => x.color = Color.Lerp(Color.red, defaultColors[x], 0.5f));
         StartCoroutine(SetDefaultColors());
 
+        UpdateHealthBar();
         if (currentHp <= 0)
         {
+            hostDied = true;
             ragdoll.Activate(hitPosition, hitDirection, forceAmount);
             Die();
+        }
+        return hostDied;
+    }
+
+    private void UpdateHealthBar() {
+        if (host.IsPlayer) {
+            UIHealthBar.main.SetHealth(Mathf.Clamp(currentHp / config.MaxHP, 0, 1));
         }
     }
 
