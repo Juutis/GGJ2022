@@ -27,6 +27,9 @@ public class RangedFighter : MonoBehaviour
     [SerializeField]
     private ParticleSystem hitEffect;
 
+    [SerializeField]
+    private TrailRenderer bulletTrail;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +85,9 @@ public class RangedFighter : MonoBehaviour
 
         if (hit)
         {
+            bulletTrail.transform.position = hitData.point;
+            bulletTrail.AddPosition(muzzle.transform.position);
+            
             if (hitData.collider != null)
             {
                 TargetEntity targetEntity = hitData.collider.gameObject.GetComponentInParent<TargetEntity>();
@@ -105,6 +111,10 @@ public class RangedFighter : MonoBehaviour
                     }
                 }
             }
+        }
+        else {
+            bulletTrail.transform.position = rayOrigin + rayDirection * 100.0f;
+            bulletTrail.AddPosition(muzzle.transform.position);
         }
     }
 }

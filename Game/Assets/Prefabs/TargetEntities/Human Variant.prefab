@@ -557,6 +557,7 @@ MonoBehaviour:
     type: 3}
   hitEffect: {fileID: 8989479543215831156, guid: 3a4c361bc3b611c4cb5099a994a1ab48,
     type: 3}
+  bulletTrail: {fileID: 7066612276906622130}
 --- !u!4 &2336622634955728293 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 474150356958803932, guid: bd266e4afa1e77c41acd55dd1be7c041,
@@ -568,4 +569,79 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6550587283468695866, guid: bd266e4afa1e77c41acd55dd1be7c041,
     type: 3}
   m_PrefabInstance: {fileID: 2808518649458659961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4417868167956959635
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2336622634955728293}
+    m_Modifications:
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771260091118621510, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7066527753692936957, guid: 5682253560ad949419dd06dc82f7ac4b,
+        type: 3}
+      propertyPath: m_Name
+      value: Bullet Trail
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5682253560ad949419dd06dc82f7ac4b, type: 3}
+--- !u!96 &7066612276906622130 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 6872156434746469665, guid: 5682253560ad949419dd06dc82f7ac4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4417868167956959635}
   m_PrefabAsset: {fileID: 0}
