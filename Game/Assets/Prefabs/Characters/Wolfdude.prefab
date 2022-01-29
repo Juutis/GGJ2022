@@ -996,6 +996,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RagdollRoot: {fileID: 86678592866942416}
   DebugTrigger: 0
+--- !u!114 &3103438976133489755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556747149766113372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38eb1ccd0ed06641bf1c8c182b14334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &932850101778735846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d151b79cb5c50da41a4fc9402a9f7695,

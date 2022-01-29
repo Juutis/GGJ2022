@@ -274,6 +274,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 6f1c6a3ea09428c4eb8ae923a47c9f29, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 9a8cc6686911c19478cc21d4668ee4fc,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6667426885285894709, guid: 9a8cc6686911c19478cc21d4668ee4fc,
         type: 3}
       propertyPath: m_Layer
@@ -509,6 +514,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 7878032928424356925}
   target: {fileID: 0}
+--- !u!114 &4618950662905309623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530709190691384573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38eb1ccd0ed06641bf1c8c182b14334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5088843440184283525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,6 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RagdollRoot: {fileID: 3924216788810606961}
+  DebugTrigger: 0
 --- !u!1 &3589979469476818534 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1003418512477962186, guid: 9a8cc6686911c19478cc21d4668ee4fc,
