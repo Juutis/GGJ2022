@@ -22,6 +22,9 @@ public class Shooting : MonoBehaviour
     [SerializeField]
     private ParticleSystem hitEffect;
 
+    [SerializeField]
+    private ParticleSystem bloodEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,25 +53,30 @@ public class Shooting : MonoBehaviour
 
             if (hit)
             {
-                var effect = Instantiate(hitEffect);
-                effect.transform.position = hitData.point;
 
                 if (hitData.collider != null)
                 {
                     TargetEntity targetEntity = hitData.collider.gameObject.GetComponentInParent<TargetEntity>();
                     
-                    if (targetEntity == null) continue;
-                    if (targetEntity.TargetType != host.TargetType)
-                    {
-                        GameObject target = hitData.collider.gameObject;
-                        Killable killable = target.GetComponentInParent<Killable>();
-                        if (killable != null)
+                    if (targetEntity != null) {
+                        var effect = Instantiate(bloodEffect);
+                        effect.transform.position = hitData.point;
+
+                        if(targetEntity.TargetType != host.TargetType)
                         {
-                            bool targetDied = killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
-                            if (host.IsPlayer && targetDied) {
-                                PlayerAlignment.main.MoveAlignment(host, killable.gameObject);
+                            GameObject target = hitData.collider.gameObject;
+                            Killable killable = target.GetComponentInParent<Killable>();
+                            if (killable != null)
+                            {
+                                bool targetDied = killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
+                                if (host.IsPlayer && targetDied) {
+                                    PlayerAlignment.main.MoveAlignment(host, killable.gameObject);
+                                }
                             }
                         }
+                    } else {
+                        var effect = Instantiate(hitEffect);
+                        effect.transform.position = hitData.point;
                     }
                 }
             }
