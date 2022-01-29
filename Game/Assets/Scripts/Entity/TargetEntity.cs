@@ -42,7 +42,7 @@ public class TargetEntity : MonoBehaviour
 
     public void Initialize()
     {
-        if (viewOrigin == null)
+        if (viewOrigin == null && !isPlayer)
         {
             Debug.LogWarning($"Entity '{name}' has null <b>viewOrigin</b>!");
             return;
@@ -65,7 +65,10 @@ public class TargetEntity : MonoBehaviour
             }
         }
         navigation = GetComponent<TargetEntityNavigation>();
-        originalColor = mesh.material.color;
+        if (mesh != null)
+        {
+            originalColor = mesh.material.color;
+        }
         TargetEntityManager.main.RegisterTarget(this);
     }
 
@@ -90,18 +93,27 @@ public class TargetEntity : MonoBehaviour
 
     public void Kill()
     {
-
+        if (!isPlayer)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void DebugSetIsNearby(bool isNearby)
     {
-        mesh.material.color = isNearby ? TargetEntityManager.main.IsNearbyColor : originalColor;
+        if (mesh != null)
+        {
+            mesh.material.color = isNearby ? TargetEntityManager.main.IsNearbyColor : originalColor;
+        }
     }
 
 
     public void DebugSetIsSeen(bool isSeen)
     {
-        mesh.material.color = isSeen ? TargetEntityManager.main.IsSeenColor : originalColor;
+        if (mesh != null)
+        {
+            mesh.material.color = isSeen ? TargetEntityManager.main.IsSeenColor : originalColor;
+        }
     }
 
     public void TogglePlayerTargetType()
