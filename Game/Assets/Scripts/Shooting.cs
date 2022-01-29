@@ -33,7 +33,7 @@ public class Shooting : MonoBehaviour
 
     public void Shoot()
     {
-        //particles.Play();
+        particles.Play();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
 
         var aimDir = playerCamera.transform.forward;

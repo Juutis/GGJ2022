@@ -19,9 +19,7 @@ public class TargetEntityNavigation : MonoBehaviour
     public TargetEntity CurrentTarget { get { return currentTarget; } }
 
     private Vector3 currentDestination;
-
-    [SerializeField]
-    private bool wander = false;
+    private bool wander = true;
 
     private bool alive = true;
 
@@ -43,6 +41,11 @@ public class TargetEntityNavigation : MonoBehaviour
 
         melee = GetComponent<MeleeFighter>();
         ranged = GetComponent<RangedFighter>();
+        Invoke("EnableAgent", 1.0f);
+    }
+
+    public void EnableAgent() {
+        agent.enabled = true;
     }
 
     public void SetTarget(TargetEntity newTarget)
@@ -67,7 +70,7 @@ public class TargetEntityNavigation : MonoBehaviour
 
     void Update()
     {
-        if (!alive) return;
+        if (!alive || (agent && !agent.enabled)) return;
 
         if (currentTarget != null)
         {

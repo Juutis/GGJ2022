@@ -18,6 +18,15 @@ public class RangedFighter : MonoBehaviour
 
     private bool alive = true;
 
+    [SerializeField]
+    private ParticleSystem muzzle;
+
+    [SerializeField]
+    private ParticleSystem bloodEffect;
+
+    [SerializeField]
+    private ParticleSystem hitEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +44,7 @@ public class RangedFighter : MonoBehaviour
             if (!firing) {
                 firing = true;
                 aiming = true;
-                Invoke("StartFiring", Random.Range(2.5f, 5.0f));
+                Invoke("StartFiring", Random.Range(1.5f, 3.0f));
             }
 
             if(aiming) {
@@ -69,12 +78,22 @@ public class RangedFighter : MonoBehaviour
         var rayDirection = lastKnownTargetPos - transform.position;
         bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData);
 
+        muzzle.Play();
+
         if (hit)
         {
             if (hitData.collider != null)
             {
                 TargetEntity targetEntity = hitData.collider.gameObject.GetComponentInParent<TargetEntity>();
                 
+                if (targetEntity != null) {
+                    var effect = Instantiate(bloodEffect);
+                    effect.transform.position = hitData.point;
+                } else {
+                    var effect = Instantiate(hitEffect);
+                    effect.transform.position = hitData.point;
+                }
+
                 if (targetEntity == null) return;
                 if (targetEntity.TargetType == TargetEntityType.Werewolf)
                 {
