@@ -142,7 +142,7 @@ public class Player : MonoBehaviour
             float yCharge = Mathf.Max(leapCharge * 0.08f, jumpHeight);
             yVel = Mathf.Sqrt(yCharge * -2f * gravity);
             xVel = Mathf.Sqrt(leapCharge * -2f * gravity);
-            Debug.Log($"yVel {yVel}, xVel {xVel}, leapCharge {leapCharge}, ?{leapCharge * -2f * gravity}");
+            
             jump = false;
             leapCharge = startCharge;
         }
