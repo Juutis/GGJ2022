@@ -44,6 +44,10 @@ public class Killable : MonoBehaviour
         IsEnabled = false;
     }
 
+    public bool IsAlive() {
+        return IsEnabled;
+    }
+
     public bool DealDamage(float amount, Vector3 hitPosition, Vector3 hitDirection, float forceAmount)
     {
         if (!IsEnabled) {

@@ -25,15 +25,29 @@ public class Shooting : MonoBehaviour
     [SerializeField]
     private ParticleSystem bloodEffect;
 
+    private int shots = 2;
+
     // Start is called before the first frame update
     void Start()
     {
         host = GetComponent<TargetEntity>();
     }
 
+    public void Reload() {
+        shots = 2;
+    }
+
     public void Shoot()
     {
-        //particles.Play();
+        if (shots <= 0) return;
+
+        shots--;
+
+        if (shots == 0) {
+            Invoke("Reload", 1.5f);
+        }
+
+        particles.Play();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
 
         var aimDir = playerCamera.transform.forward;
