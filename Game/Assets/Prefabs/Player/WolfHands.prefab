@@ -111,6 +111,46 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 04bbfa2c527c01a47aed75c0c67b581a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f66c141b35acde84daf6735842098a1b, type: 3}
+--- !u!1 &232673827542313388 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f66c141b35acde84daf6735842098a1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1151784939813704957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1762020513679216445
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232673827542313388}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6b161e406385eba4385b0bbc04d639fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6778801158489206602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232673827542313388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6547a264fd371b41afcb8af3c09a48b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerQuickAttack: 0
+  TriggerPowerAttack: 0
 --- !u!4 &608354499186193174 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f66c141b35acde84daf6735842098a1b,
