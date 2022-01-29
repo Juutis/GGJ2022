@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
         }
         else if (jumpStarted && host.TargetType != TargetEntityType.Human)
         {
-            float yCharge = Mathf.Max(leapCharge * 0.08f, jumpHeight);
+            float yCharge = Mathf.Max(leapCharge * 0.08f, jumpHeight * 0.5f);
             yVel = Mathf.Sqrt(yCharge * -2f * gravity);
             xVel = Mathf.Sqrt(leapCharge * -2f * gravity);
 
