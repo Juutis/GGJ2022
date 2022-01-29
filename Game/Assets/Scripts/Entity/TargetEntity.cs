@@ -35,6 +35,9 @@ public class TargetEntity : MonoBehaviour
 
     public TargetEntity CurrentTarget { get { return navigation.CurrentTarget; } }
 
+    [SerializeField]
+    private CapsuleCollider raycastCollider;
+
     private void Start()
     {
         Initialize();
@@ -70,6 +73,7 @@ public class TargetEntity : MonoBehaviour
             originalColor = mesh.material.color;
         }
         TargetEntityManager.main.RegisterTarget(this);
+        raycastCollider.gameObject.layer = TargetEntityManager.main.GetFriendlyFactionLayer(this);
     }
 
     public void SetNavigationTarget(TargetEntity target)
@@ -119,6 +123,7 @@ public class TargetEntity : MonoBehaviour
     public void TogglePlayerTargetType()
     {
         targetType = targetType == TargetEntityType.Human ? TargetEntityType.Werewolf : TargetEntityType.Human;
+        raycastCollider.gameObject.layer = TargetEntityManager.main.GetFriendlyFactionLayer(this);
     }
 
 }

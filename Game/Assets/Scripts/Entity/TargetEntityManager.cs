@@ -52,6 +52,12 @@ public class TargetEntityManager : MonoBehaviour
         return LayerMask.NameToLayer(targetLayerName);
     }
 
+    public LayerMask GetFriendlyFactionLayer(TargetEntity target)
+    {
+        string targetLayerName = target.TargetType == TargetEntityType.Human ? "Human" : "Werewolf";
+        return LayerMask.NameToLayer(targetLayerName);
+    }
+
 }
 
 [System.Serializable]

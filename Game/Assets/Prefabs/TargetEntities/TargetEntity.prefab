@@ -119,6 +119,7 @@ MonoBehaviour:
   viewOrigin: {fileID: 8963660945899515474}
   mesh: {fileID: 0}
   isPlayer: 0
+  raycastCollider: {fileID: 6550587283468695866}
 --- !u!114 &335639677775416381
 MonoBehaviour:
   m_ObjectHideFlags: 0
