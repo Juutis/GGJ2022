@@ -23,6 +23,8 @@ public class TargetEntityNavigation : MonoBehaviour
     [SerializeField]
     private bool wander = false;
 
+    private bool alive = true;
+
     void Start()
     {
         Initialize();
@@ -46,8 +48,15 @@ public class TargetEntityNavigation : MonoBehaviour
         currentTarget = null;
     }
 
+    public void Kill() {
+        alive = false;
+        agent.enabled = false;
+    }
+
     void Update()
     {
+        if (!alive) return;
+
         if (currentTarget != null)
         {
             //refreshTimer += Time.deltaTime;

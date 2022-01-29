@@ -32,7 +32,8 @@ public class Swiping : MonoBehaviour
         handAnimation.TriggerQuickAttack = true;
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hitData;
-        bool hit = Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hitData, 3.5f);
+        var rayDirection = playerCamera.transform.forward;
+        bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData, 3.5f);
 
         if (hit)
         {
@@ -46,7 +47,7 @@ public class Swiping : MonoBehaviour
                     Killable killable = target.GetComponentInParent<Killable>();
                     if (killable != null)
                     {
-                        killable.DealDamage(3);
+                        killable.DealDamage(3, hitData.point, rayDirection, 150.0f);
                         // hitParticles.Play();
                     }
                 }
@@ -60,7 +61,8 @@ public class Swiping : MonoBehaviour
         handAnimation.TriggerPowerAttack = true;
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hitData;
-        bool hit = Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hitData, 3.5f);
+        var rayDirection = playerCamera.transform.forward;
+        bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData, 3.5f);
 
         if (hit)
         {
@@ -74,7 +76,7 @@ public class Swiping : MonoBehaviour
                     Killable killable = target.GetComponentInParent<Killable>();
                     if (killable != null)
                     {
-                        killable.DealDamage(10);
+                        killable.DealDamage(10, hitData.point, rayDirection, 200.0f);
                         // hitParticles.Play();
                     }
                 }

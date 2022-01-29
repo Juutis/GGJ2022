@@ -13,6 +13,8 @@ public class Killable : MonoBehaviour
 
     private TargetEntity host;
 
+    private Ragdollizer ragdoll;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,26 +27,30 @@ public class Killable : MonoBehaviour
         {
             defaultColors.Add(m, m.color);
         }
+
+        ragdoll = GetComponentInChildren<Ragdollizer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentHp <= 0)
-        {
-            Die();
-        }
     }
 
     private void Die() {
         TargetEntityManager.main.KillTarget(host);
     }
 
-    public void DealDamage(float amount)
+    public void DealDamage(float amount, Vector3 hitPosition, Vector3 hitDirection, float forceAmount)
     {
         currentHp -= amount;
         materials.ForEach(x => x.color = Color.Lerp(Color.red, defaultColors[x], 0.5f));
         StartCoroutine(SetDefaultColors());
+
+        if (currentHp <= 0)
+        {
+            ragdoll.Activate(hitPosition, hitDirection, forceAmount);
+            Die();
+        }
     }
 
     private IEnumerator SetDefaultColors()

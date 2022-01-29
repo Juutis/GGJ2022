@@ -99,7 +99,8 @@ public class TargetEntity : MonoBehaviour
     {
         if (!isPlayer)
         {
-            Destroy(gameObject);
+            navigation.Kill();
+            //Destroy(gameObject);
         }
     }
 

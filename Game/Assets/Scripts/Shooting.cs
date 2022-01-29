@@ -21,7 +21,8 @@ public class Shooting : MonoBehaviour
         particles.Play();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hitData;
-        bool hit = Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hitData);
+        var rayDirection = playerCamera.transform.forward;
+        bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData);
 
         if (hit)
         {
@@ -36,7 +37,7 @@ public class Shooting : MonoBehaviour
                     Killable killable = target.GetComponentInParent<Killable>();
                     if (killable != null)
                     {
-                        killable.DealDamage(2);
+                        killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
                     }
                 }
             }
