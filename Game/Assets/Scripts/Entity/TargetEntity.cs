@@ -25,37 +25,64 @@ public class TargetEntity : MonoBehaviour
     private Transform viewOrigin;
 
     [SerializeField]
-    private MeshRenderer mesh;
+    private SkinnedMeshRenderer mesh;
 
-    private void Start() {
+    private TargetEntityNavigation navigation;
+
+    [SerializeField]
+    private bool isPlayer = false;
+    public bool IsPlayer { get { return isPlayer; } }
+
+    public TargetEntity CurrentTarget { get { return navigation.CurrentTarget; } }
+
+    private void Start()
+    {
         Initialize();
     }
 
     public void Initialize()
     {
-        if (viewOrigin == null) {
+        if (viewOrigin == null)
+        {
             Debug.LogWarning($"Entity '{name}' has null <b>viewOrigin</b>!");
             return;
         }
-        if (viewTargetContainer == null) {
+        if (viewTargetContainer == null)
+        {
             Debug.LogWarning($"Entity '{name}' has null <b>viewTargetContainer</b>!");
             return;
         }
-        if (viewTargetContainer.childCount == 0) {
+        if (viewTargetContainer.childCount == 0)
+        {
             Debug.LogWarning($"Entity '{name}' doesn't have any view targets! Add some under <b>viewTargetContainer</b>!");
         }
-        foreach(Transform child in viewTargetContainer) {
+        foreach (Transform child in viewTargetContainer)
+        {
             viewTargets.Add(child);
-            foreach(Transform targetChild in child) {
+            foreach (Transform targetChild in child)
+            {
                 viewTargets.Add(targetChild);
             }
         }
+        navigation = GetComponent<TargetEntityNavigation>();
         originalColor = mesh.material.color;
         TargetEntityManager.main.RegisterTarget(this);
     }
 
-    public EntityFoVSettings GetFoVSettings() {
-        if (TargetType == TargetEntityType.Human) {
+    public void SetNavigationTarget(TargetEntity target)
+    {
+        navigation.SetTarget(target);
+    }
+
+    public void ClearNavigationTarget()
+    {
+        navigation.ClearTarget();
+    }
+
+    public EntityFoVSettings GetFoVSettings()
+    {
+        if (TargetType == TargetEntityType.Human)
+        {
             return TargetEntityManager.main.HumanFoV;
         }
         return TargetEntityManager.main.WerewolfFoV;
@@ -75,6 +102,11 @@ public class TargetEntity : MonoBehaviour
     public void DebugSetIsSeen(bool isSeen)
     {
         mesh.material.color = isSeen ? TargetEntityManager.main.IsSeenColor : originalColor;
+    }
+
+    public void TogglePlayerTargetType()
+    {
+        targetType = targetType == TargetEntityType.Human ? TargetEntityType.Werewolf : TargetEntityType.Human;
     }
 
 }
