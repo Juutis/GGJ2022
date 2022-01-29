@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8c8079760cf3f469bc5edbcb8d4b39, type: 3}
+  m_Name: DayCycleConfig
+  m_EditorClassIdentifier: 
+  DayLength: 60
+  DawnAmbientColor: {r: 1, g: 0.454687, b: 0, a: 0}
+  DayAmbientColor: {r: 1, g: 1, b: 1, a: 0}
+  DuskAmbientColor: {r: 1, g: 0.45490196, b: 0, a: 0}
+  NightAmbientColor: {r: 0.03177287, g: 0.055571426, b: 0.3207547, a: 0}
+  DawnSkyColor: {r: 1, g: 0.45490196, b: 0, a: 0}
+  DaySkyColor: {r: 0.5896226, g: 0.9227525, b: 1, a: 0}
+  DuskSkyColor: {r: 1, g: 0.45490196, b: 0, a: 0}
+  NightSkyColor: {r: 0.08290317, g: 0.15777391, b: 0.254717, a: 0}
