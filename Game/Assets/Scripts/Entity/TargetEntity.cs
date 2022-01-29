@@ -27,26 +27,32 @@ public class TargetEntity : MonoBehaviour
     [SerializeField]
     private MeshRenderer mesh;
 
-    private void Start() {
+    private void Start()
+    {
         Initialize();
     }
 
     public void Initialize()
     {
-        if (viewOrigin == null) {
+        if (viewOrigin == null)
+        {
             Debug.LogWarning($"Entity '{name}' has null <b>viewOrigin</b>!");
             return;
         }
-        if (viewTargetContainer == null) {
+        if (viewTargetContainer == null)
+        {
             Debug.LogWarning($"Entity '{name}' has null <b>viewTargetContainer</b>!");
             return;
         }
-        if (viewTargetContainer.childCount == 0) {
+        if (viewTargetContainer.childCount == 0)
+        {
             Debug.LogWarning($"Entity '{name}' doesn't have any view targets! Add some under <b>viewTargetContainer</b>!");
         }
-        foreach(Transform child in viewTargetContainer) {
+        foreach (Transform child in viewTargetContainer)
+        {
             viewTargets.Add(child);
-            foreach(Transform targetChild in child) {
+            foreach (Transform targetChild in child)
+            {
                 viewTargets.Add(targetChild);
             }
         }
@@ -54,8 +60,10 @@ public class TargetEntity : MonoBehaviour
         TargetEntityManager.main.RegisterTarget(this);
     }
 
-    public EntityFoVSettings GetFoVSettings() {
-        if (TargetType == TargetEntityType.Human) {
+    public EntityFoVSettings GetFoVSettings()
+    {
+        if (TargetType == TargetEntityType.Human)
+        {
             return TargetEntityManager.main.HumanFoV;
         }
         return TargetEntityManager.main.WerewolfFoV;
@@ -75,6 +83,11 @@ public class TargetEntity : MonoBehaviour
     public void DebugSetIsSeen(bool isSeen)
     {
         mesh.material.color = isSeen ? TargetEntityManager.main.IsSeenColor : originalColor;
+    }
+
+    public void TogglePlayerTargetType()
+    {
+        targetType = targetType == TargetEntityType.Human ? TargetEntityType.Werewolf : TargetEntityType.Human;
     }
 
 }

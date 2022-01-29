@@ -26,12 +26,12 @@ public class Player : MonoBehaviour
     private float wolfLookSpeedBuff;
     [SerializeField]
     private float leapChargeSpeed;
+    private TargetEntity host;
     private CharacterController controller;
     private Vector3 moveDir;
     private float mouseX;
     private float mouseY;
     private float xRotation = 0f;
-    private bool isHuman = true;
     private float gravity = -9.81f * 3f;
     private float jumpHeight = 2f;
     private float yVel = 0f;
@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        host = GetComponent<TargetEntity>();
         controller = GetComponent<CharacterController>();
         if (hideMouse)
         {
@@ -55,8 +56,8 @@ public class Player : MonoBehaviour
         }
         xRotation = -10;
 
-        werewolfParts.SetActive(!isHuman);
-        humanParts.SetActive(isHuman);
+        werewolfParts.SetActive(host.TargetType == TargetEntityType.Werewolf);
+        humanParts.SetActive(host.TargetType == TargetEntityType.Human);
         leapCharge = startCharge;
     }
 
@@ -86,13 +87,13 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                isHuman = !isHuman;
-                humanParts.SetActive(isHuman);
-                werewolfParts.SetActive(!isHuman);
+                host.TogglePlayerTargetType();
+                humanParts.SetActive(host.TargetType == TargetEntityType.Human);
+                werewolfParts.SetActive(host.TargetType == TargetEntityType.Werewolf);
             }
         }
 
-        if (isHuman)
+        if (host.TargetType == TargetEntityType.Human)
         {
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
@@ -131,12 +132,12 @@ public class Player : MonoBehaviour
             xVel = 0f;
         }
 
-        if (jump && isHuman)
+        if (jump && host.TargetType == TargetEntityType.Human)
         {
             yVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jump = false;
         }
-        else if (jump && !isHuman)
+        else if (jump && host.TargetType != TargetEntityType.Human)
         {
             float yCharge = Mathf.Max(leapCharge * 0.08f, jumpHeight);
             yVel = Mathf.Sqrt(yCharge * -2f * gravity);
@@ -148,14 +149,14 @@ public class Player : MonoBehaviour
 
         yVel += gravity * Time.deltaTime;
 
-        float moveBuff = isHuman ? 1 : wolfMovementBuff;
+        float moveBuff = host.TargetType == TargetEntityType.Human ? 1 : wolfMovementBuff;
         controller.Move(
             (transform.right * moveDir.x + transform.forward * moveDir.z) * movementSpeed * moveBuff * Time.deltaTime +
             transform.up * yVel * Time.deltaTime +
             transform.forward * xVel * Time.deltaTime
         );
 
-        float lookSpeedBuff = isHuman ? 1 : wolfLookSpeedBuff;
+        float lookSpeedBuff = host.TargetType == TargetEntityType.Human ? 1 : wolfLookSpeedBuff;
         xRotation -= mouseY * mouseSensitivity * lookSpeedBuff;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
         cameraObject.localRotation = Quaternion.Euler(xRotation, 0, 0);
