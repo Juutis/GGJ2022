@@ -8,10 +8,13 @@ public class CharacterAnimator : MonoBehaviour
 
     public MeleeFighter Melee;
 
+    private DudeAim aim;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        aim = GetComponent<DudeAim>();
     }
 
     // Update is called once per frame
@@ -32,4 +35,13 @@ public class CharacterAnimator : MonoBehaviour
         if (Melee != null) Melee.DealDamage();
     }
 
+    public void AimAt(Vector3 target) {
+        aim.SetTarget(target);
+        aim.SetAiming(true);
+    }
+
+    public void StopAim() {
+        aim.SetAiming(false);
+    }
+    
 }
