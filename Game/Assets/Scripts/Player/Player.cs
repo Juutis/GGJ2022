@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
                 moveDir = Vector3.zero;
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 swiping.NormalSwipe();
             }

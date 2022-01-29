@@ -52,7 +52,7 @@ public class WolfhandsAnimation : MonoBehaviour
         }
         anim.SetInteger(animAttackProp, attackIndex);
         isAttacking = true;
-        Invoke("ResetAttacking", 0.25f);
+        Invoke("ResetAttacking", 0.5f);
     }
 
     public void ResetAttacking() {

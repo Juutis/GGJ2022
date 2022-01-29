@@ -20,6 +20,8 @@ public class Swiping : MonoBehaviour
     private bool isPlayer;
     private TargetEntity host;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,7 @@ public class Swiping : MonoBehaviour
 
     public void NormalSwipe()
     {
+        if (!handAnimation.ReadyToAttack()) return;
         // particles.Play();
         handAnimation.QuickAttack();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
