@@ -15,13 +15,8 @@ public class Killable : MonoBehaviour
     void Start()
     {
         currentHp = config.MaxHP;
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
-        materials = renderer.materials.ToList();
-        foreach (Transform t in transform)
-        {
-            MeshRenderer childRenderer = t.GetComponent<MeshRenderer>();
-            materials.AddRange(childRenderer.materials.ToList());
-        }
+
+        materials = new List<Material>(GetComponentsInChildren<SkinnedMeshRenderer>().SelectMany(skin => skin.materials.ToList()));
 
         foreach (Material m in materials)
         {

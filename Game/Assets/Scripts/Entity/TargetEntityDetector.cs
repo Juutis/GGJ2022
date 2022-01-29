@@ -76,8 +76,20 @@ public class TargetEntityDetector : MonoBehaviour
         {
             DebugSeenTargets();
         }
-        foreach(TargetEntity seenTarget in seenTargets) {
-            //ShootAt(seenTarget);
+
+        if (seenTargets.Count == 0) {
+            if (host.CurrentTarget != null) {
+                host.ClearNavigationTarget();
+            }
+            return;
+        }
+
+        if (host.CurrentTarget == null || host.CurrentTarget.IsPlayer || !seenTargets.Contains(host.CurrentTarget)) {
+            TargetEntity newTarget = seenTargets.Where(target => !target.IsPlayer).FirstOrDefault();
+            if (newTarget == null) {
+                newTarget = seenTargets.First();
+            }
+            host.SetNavigationTarget(newTarget);
         }
     }
 
