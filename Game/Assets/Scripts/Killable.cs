@@ -11,9 +11,12 @@ public class Killable : MonoBehaviour
     private List<Material> materials;
     private Dictionary<Material, Color> defaultColors = new Dictionary<Material, Color>();
 
+    private TargetEntity host;
+
     // Start is called before the first frame update
     void Start()
     {
+        host = GetComponent<TargetEntity>();
         currentHp = config.MaxHP;
 
         materials = new List<Material>(GetComponentsInChildren<SkinnedMeshRenderer>().SelectMany(skin => skin.materials.ToList()));
@@ -29,8 +32,12 @@ public class Killable : MonoBehaviour
     {
         if (currentHp <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die() {
+        TargetEntityManager.main.KillTarget(host);
     }
 
     public void DealDamage(float amount)

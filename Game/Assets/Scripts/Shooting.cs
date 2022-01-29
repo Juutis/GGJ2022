@@ -31,7 +31,7 @@ public class Shooting : MonoBehaviour
                 if (hitData.collider != null)
                 {
                     GameObject target = hitData.collider.gameObject;
-                    Killable killable = target.GetComponent<Killable>();
+                    Killable killable = target.GetComponentInParent<Killable>();
                     if (killable != null)
                     {
                         killable.DealDamage(2);
