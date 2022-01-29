@@ -25,7 +25,15 @@ public class TargetEntity : MonoBehaviour
     private Transform viewOrigin;
 
     [SerializeField]
-    private MeshRenderer mesh;
+    private SkinnedMeshRenderer mesh;
+
+    private TargetEntityNavigation navigation;
+
+    [SerializeField]
+    private bool isPlayer = false;
+    public bool IsPlayer { get { return isPlayer; } }
+
+    public TargetEntity CurrentTarget { get { return navigation.CurrentTarget; } }
 
     private void Start()
     {
@@ -56,8 +64,19 @@ public class TargetEntity : MonoBehaviour
                 viewTargets.Add(targetChild);
             }
         }
+        navigation = GetComponent<TargetEntityNavigation>();
         originalColor = mesh.material.color;
         TargetEntityManager.main.RegisterTarget(this);
+    }
+
+    public void SetNavigationTarget(TargetEntity target)
+    {
+        navigation.SetTarget(target);
+    }
+
+    public void ClearNavigationTarget()
+    {
+        navigation.ClearTarget();
     }
 
     public EntityFoVSettings GetFoVSettings()
