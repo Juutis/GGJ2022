@@ -64,7 +64,10 @@ public class Shooting : MonoBehaviour
                         Killable killable = target.GetComponentInParent<Killable>();
                         if (killable != null)
                         {
-                            killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
+                            bool targetDied = killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
+                            if (host.IsPlayer && targetDied) {
+                                PlayerAlignment.main.MoveAlignment(host, killable.gameObject);
+                            }
                         }
                     }
                 }

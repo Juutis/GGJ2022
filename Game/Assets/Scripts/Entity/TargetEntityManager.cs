@@ -28,6 +28,11 @@ public class TargetEntityManager : MonoBehaviour
     private EntityFoVSettings werewolfFov;
     public EntityFoVSettings WerewolfFoV { get { return werewolfFov; } }
 
+    [SerializeField]
+    private Sprite werewolfSprite;
+    [SerializeField]
+    private Sprite humanSprite;
+
 
     void Awake()
     {
@@ -56,6 +61,10 @@ public class TargetEntityManager : MonoBehaviour
     {
         string targetLayerName = target.TargetType == TargetEntityType.Human ? "Human" : "Werewolf";
         return LayerMask.NameToLayer(targetLayerName);
+    }
+    public Sprite GetFactionSprite(TargetEntityType faction)
+    {
+        return faction == TargetEntityType.Human ? humanSprite : werewolfSprite;
     }
 
 }
