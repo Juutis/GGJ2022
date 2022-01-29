@@ -844,6 +844,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417951838}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &453726835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 453726836}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &453726836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453726835}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.996, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1597748286}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &475121147
 GameObject:
   m_ObjectHideFlags: 0
@@ -2579,6 +2610,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 113532151}
+  - {fileID: 453726836}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2595,12 +2627,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hideMouse: 1
-  mouseSensitivity: 300
+  mouseSensitivity: 60
   cameraObject: {fileID: 1682501129}
   humanParts: {fileID: 1221399109}
   werewolfParts: {fileID: 207415248}
+  groundCheck: {fileID: 453726836}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
   wolfMovementBuff: 2
   wolfLookSpeedBuff: 0.6
+  leapChargeSpeed: 10
 --- !u!1 &1682501125
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,7 +3194,7 @@ GameObject:
   - component: {fileID: 2070487608}
   - component: {fileID: 2070487607}
   - component: {fileID: 2070487606}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
