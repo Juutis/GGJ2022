@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask groundMask;
     [SerializeField]
+    private float movementSpeed;
+    [SerializeField]
     private float wolfMovementBuff;
     [SerializeField]
     private float wolfLookSpeedBuff;
@@ -35,6 +37,7 @@ public class Player : MonoBehaviour
     private float yVel = 0f;
     private float xVel = 0f;
     private float leapCharge = 0f;
+    private float startCharge = 3f;
     private bool charging = false;
     private bool leapNoMovement = false;
     private float checkDistance = 0.4f;
@@ -54,6 +57,7 @@ public class Player : MonoBehaviour
 
         werewolfParts.SetActive(!isHuman);
         humanParts.SetActive(isHuman);
+        leapCharge = startCharge;
     }
 
     // Update is called once per frame
@@ -134,19 +138,19 @@ public class Player : MonoBehaviour
         }
         else if (jump && !isHuman)
         {
-            float yCharge = Mathf.Max(leapCharge * 0.1f, jumpHeight);
+            float yCharge = Mathf.Max(leapCharge * 0.08f, jumpHeight);
             yVel = Mathf.Sqrt(yCharge * -2f * gravity);
             xVel = Mathf.Sqrt(leapCharge * -2f * gravity);
             Debug.Log($"yVel {yVel}, xVel {xVel}, leapCharge {leapCharge}, ?{leapCharge * -2f * gravity}");
             jump = false;
-            leapCharge = 0f;
+            leapCharge = startCharge;
         }
 
         yVel += gravity * Time.deltaTime;
 
         float moveBuff = isHuman ? 1 : wolfMovementBuff;
         controller.Move(
-            (transform.right * moveDir.x + transform.forward * moveDir.z) * 30 * moveBuff * Time.deltaTime +
+            (transform.right * moveDir.x + transform.forward * moveDir.z) * movementSpeed * moveBuff * Time.deltaTime +
             transform.up * yVel * Time.deltaTime +
             transform.forward * xVel * Time.deltaTime
         );
