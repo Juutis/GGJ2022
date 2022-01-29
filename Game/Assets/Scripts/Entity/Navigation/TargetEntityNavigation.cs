@@ -25,6 +25,8 @@ public class TargetEntityNavigation : MonoBehaviour
 
     private bool alive = true;
 
+    private CharacterAnimator charAnim;
+
     void Start()
     {
         Initialize();
@@ -34,6 +36,7 @@ public class TargetEntityNavigation : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         host = GetComponent<TargetEntity>();
+        charAnim = GetComponentInChildren<CharacterAnimator>();
         refreshTimer = refreshInterval;
     }
 
@@ -80,6 +83,12 @@ public class TargetEntityNavigation : MonoBehaviour
                     refreshTimer = 0f;
                 }
             }
+        }
+
+        if(agent.velocity.sqrMagnitude > 0.1f) {
+            charAnim.SetMoving(true);
+        } else {
+            charAnim.SetMoving(false);
         }
     }
 
