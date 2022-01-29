@@ -109,6 +109,11 @@ public class TargetEntity : MonoBehaviour
         targetType = targetType == TargetEntityType.Human ? TargetEntityType.Werewolf : TargetEntityType.Human;
     }
 
+    public void SetPlayerTargetType(TargetEntityType type)
+    {
+        targetType = type;
+    }
+
 }
 
 public enum TargetEntityType

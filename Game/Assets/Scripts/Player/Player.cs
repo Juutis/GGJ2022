@@ -85,12 +85,12 @@ public class Player : MonoBehaviour
                 moveDir.x = 1;
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                host.TogglePlayerTargetType();
-                humanParts.SetActive(host.TargetType == TargetEntityType.Human);
-                werewolfParts.SetActive(host.TargetType == TargetEntityType.Werewolf);
-            }
+            // if (Input.GetKeyDown(KeyCode.E))
+            // {
+            //     host.TogglePlayerTargetType();
+            //     humanParts.SetActive(host.TargetType == TargetEntityType.Human);
+            //     werewolfParts.SetActive(host.TargetType == TargetEntityType.Werewolf);
+            // }
         }
 
         if (host.TargetType == TargetEntityType.Human)
@@ -117,6 +117,22 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (DayChanger.main.IsNight())
+        {
+            host.SetPlayerTargetType(TargetEntityType.Werewolf);
+        }
+        else
+        {
+            host.SetPlayerTargetType(TargetEntityType.Human);
+            // changing to human, disable leap charging
+            leapNoMovement = false;
+            charging = false;
+            leapCharge = 0;
+        }
+
+        humanParts.SetActive(host.TargetType == TargetEntityType.Human);
+        werewolfParts.SetActive(host.TargetType == TargetEntityType.Werewolf);
+
         mouseX = Input.GetAxis("Mouse X");
         mouseY = Input.GetAxis("Mouse Y");
     }
@@ -142,7 +158,7 @@ public class Player : MonoBehaviour
             float yCharge = Mathf.Max(leapCharge * 0.08f, jumpHeight);
             yVel = Mathf.Sqrt(yCharge * -2f * gravity);
             xVel = Mathf.Sqrt(leapCharge * -2f * gravity);
-            
+
             jump = false;
             leapCharge = startCharge;
         }
