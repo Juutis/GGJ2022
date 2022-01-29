@@ -33,6 +33,7 @@ public class TargetEntityManager : MonoBehaviour
     [SerializeField]
     private Sprite humanSprite;
 
+    public TargetEntity Player {get {return GetPlayer();}}
 
     void Awake()
     {
@@ -49,6 +50,10 @@ public class TargetEntityManager : MonoBehaviour
     {
         targets.Remove(target);
         target.Kill();
+    }
+
+    public TargetEntity GetPlayer() {
+        return GameObject.FindGameObjectWithTag("Player").GetComponent<TargetEntity>();
     }
 
     public LayerMask GetOpposingFactionLayer(TargetEntity target)

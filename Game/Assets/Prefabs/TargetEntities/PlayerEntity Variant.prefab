@@ -5681,6 +5681,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEntity Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 474150356958803930, guid: bd266e4afa1e77c41acd55dd1be7c041,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 474150356958803932, guid: bd266e4afa1e77c41acd55dd1be7c041,
         type: 3}
       propertyPath: m_RootOrder
