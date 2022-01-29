@@ -16,19 +16,21 @@ public class Shooting : MonoBehaviour
         host = GetComponent<TargetEntity>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && host.TargetType == TargetEntityType.Human)
-        {
-            particles.Play();
-            Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
-            RaycastHit hitData;
-            bool hit = Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hitData);
+        particles.Play();
+        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+        RaycastHit hitData;
+        bool hit = Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hitData);
 
-            if (hit)
+        if (hit)
+        {
+            if (hitData.collider != null)
             {
-                if (hitData.collider != null)
+                TargetEntity targetEntity = hitData.collider.gameObject.GetComponentInParent<TargetEntity>();
+                
+                if (targetEntity == null) return;
+                if (targetEntity.TargetType != host.TargetType)
                 {
                     GameObject target = hitData.collider.gameObject;
                     Killable killable = target.GetComponentInParent<Killable>();

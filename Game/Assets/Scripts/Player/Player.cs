@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     private TargetEntity host;
     private CharacterController controller;
     private Vector3 moveDir;
+    private Swiping swiping;
+    private Shooting shooting;
     private float mouseX;
     private float mouseY;
     private float xRotation = 0f;
@@ -42,13 +44,17 @@ public class Player : MonoBehaviour
     private bool leapNoMovement = false;
     private float checkDistance = 0.4f;
     private bool isGrounded;
-    private bool jump = false;
+    private bool jumpStarted = false;
+    private bool jumpOngoing = false; // werewolf leaping
+    private float jumpStartedTime;
 
     // Start is called before the first frame update
     void Start()
     {
         host = GetComponent<TargetEntity>();
         controller = GetComponent<CharacterController>();
+        swiping = GetComponent<Swiping>();
+        shooting = GetComponent<Shooting>();
         if (hideMouse)
         {
             Cursor.lockState = CursorLockMode.Confined;
@@ -97,7 +103,12 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
-                jump = true;
+                jumpStarted = true;
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                shooting.Shoot();
             }
         }
         else
@@ -105,7 +116,8 @@ public class Player : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space) && isGrounded)
             {
                 charging = false;
-                jump = true;
+                jumpStarted = true;
+                jumpStartedTime = Time.time;
                 // TODO: stop updating movement direction. => can look around but don't rotate direction
             }
 
@@ -114,6 +126,11 @@ public class Player : MonoBehaviour
                 charging = true;
                 leapNoMovement = true;
                 moveDir = Vector3.zero;
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                swiping.NormalSwipe();
             }
         }
 
@@ -148,18 +165,25 @@ public class Player : MonoBehaviour
             xVel = 0f;
         }
 
-        if (jump && host.TargetType == TargetEntityType.Human)
+        if (isGrounded && jumpOngoing && (Time.time - jumpStartedTime) > 0.333f)
+        {
+            jumpOngoing = false;
+            swiping.HeavySwipe();
+        }
+
+        if (jumpStarted && host.TargetType == TargetEntityType.Human)
         {
             yVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            jump = false;
+            jumpStarted = false;
         }
-        else if (jump && host.TargetType != TargetEntityType.Human)
+        else if (jumpStarted && host.TargetType != TargetEntityType.Human)
         {
             float yCharge = Mathf.Max(leapCharge * 0.08f, jumpHeight);
             yVel = Mathf.Sqrt(yCharge * -2f * gravity);
             xVel = Mathf.Sqrt(leapCharge * -2f * gravity);
 
-            jump = false;
+            jumpStarted = false;
+            jumpOngoing = true;
             leapCharge = startCharge;
         }
 
@@ -178,10 +202,8 @@ public class Player : MonoBehaviour
         cameraObject.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.Rotate(Vector3.up, mouseX * mouseSensitivity * lookSpeedBuff);
 
-
         if (charging)
         {
-            Debug.Log(leapCharge);
             leapCharge += Time.deltaTime * leapChargeSpeed;
         }
     }
