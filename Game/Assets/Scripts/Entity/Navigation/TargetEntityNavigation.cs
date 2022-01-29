@@ -85,7 +85,7 @@ public class TargetEntityNavigation : MonoBehaviour
             }
         }
 
-        if(agent.velocity.sqrMagnitude > 0.1f) {
+        if(agent && agent.velocity.sqrMagnitude > 0.1f) {
             charAnim.SetMoving(true);
         } else {
             charAnim.SetMoving(false);

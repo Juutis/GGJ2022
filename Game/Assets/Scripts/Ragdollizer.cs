@@ -10,7 +10,7 @@ public class Ragdollizer : MonoBehaviour
     private Animator anim;
     private List<Collider> ragdollColliders;
     private List<Rigidbody> ragDollRigidbodys;
-    private Collider coll;
+    public Collider coll;
 
     private LayerMask ragdollMask;
 
@@ -20,7 +20,6 @@ public class Ragdollizer : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        coll = GetComponent<Collider>();
         ragDollRigidbodys = RagdollRoot.GetComponentsInChildren<Rigidbody>().ToList();
         ragdollColliders = RagdollRoot.GetComponentsInChildren<Collider>().ToList();
 
