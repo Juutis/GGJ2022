@@ -26,6 +26,8 @@ public class TargetEntityNavigation : MonoBehaviour
     private bool alive = true;
 
     private CharacterAnimator charAnim;
+    private MeleeFighter melee;
+    private RangedFighter ranged;
 
     void Start()
     {
@@ -38,17 +40,24 @@ public class TargetEntityNavigation : MonoBehaviour
         host = GetComponent<TargetEntity>();
         charAnim = GetComponentInChildren<CharacterAnimator>();
         refreshTimer = refreshInterval;
+
+        melee = GetComponent<MeleeFighter>();
+        ranged = GetComponent<RangedFighter>();
     }
 
     public void SetTarget(TargetEntity newTarget)
     {
         currentTarget = newTarget;
+        if (ranged != null) ranged.SetTarget(newTarget);
+        if (melee != null) melee.SetTarget(newTarget);
     }
 
     public void ClearTarget()
     {
         refreshTimer = 0f;
         currentTarget = null;
+        if (ranged != null) ranged.SetTarget(null);
+        if (melee != null) melee.SetTarget(null);
     }
 
     public void Kill() {
@@ -62,11 +71,7 @@ public class TargetEntityNavigation : MonoBehaviour
 
         if (currentTarget != null)
         {
-            //refreshTimer += Time.deltaTime;
-            //if (refreshTimer >= refreshInterval) {
             agent.SetDestination(currentTarget.transform.position);
-//            Debug.Log($"Target for {host} is now {currentTarget}");
-            //}
         }
         else if (wander)
         {

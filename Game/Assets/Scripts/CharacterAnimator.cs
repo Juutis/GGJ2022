@@ -6,6 +6,8 @@ public class CharacterAnimator : MonoBehaviour
 {
     private Animator anim;
 
+    public MeleeFighter Melee;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,4 +27,9 @@ public class CharacterAnimator : MonoBehaviour
     public void Attack() {
         anim.SetTrigger("Attack");
     }
+
+    public void Hit() {
+        if (Melee != null) Melee.DealDamage();
+    }
+
 }

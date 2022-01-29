@@ -29,7 +29,7 @@ public class Swiping : MonoBehaviour
     public void NormalSwipe()
     {
         // particles.Play();
-        handAnimation.TriggerQuickAttack = true;
+        handAnimation.QuickAttack();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hitData;
         var rayDirection = playerCamera.transform.forward;
@@ -58,7 +58,7 @@ public class Swiping : MonoBehaviour
     public void HeavySwipe()
     {
         // particles.Play();
-        handAnimation.TriggerPowerAttack = true;
+        handAnimation.PowerAttack();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hitData;
         var rayDirection = playerCamera.transform.forward;
