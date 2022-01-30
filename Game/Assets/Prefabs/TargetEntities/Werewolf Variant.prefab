@@ -171,7 +171,22 @@ PrefabInstance:
     - target: {fileID: 2163026560391909729, guid: bd266e4afa1e77c41acd55dd1be7c041,
         type: 3}
       propertyPath: m_Speed
-      value: 7
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163026560391909729, guid: bd266e4afa1e77c41acd55dd1be7c041,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163026560391909729, guid: bd266e4afa1e77c41acd55dd1be7c041,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163026560391909729, guid: bd266e4afa1e77c41acd55dd1be7c041,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3044459604663621732, guid: bd266e4afa1e77c41acd55dd1be7c041,
         type: 3}
