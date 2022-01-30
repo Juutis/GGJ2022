@@ -38,6 +38,12 @@ public class Swiping : MonoBehaviour
         var rayDirection = playerCamera.transform.forward;
         bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData, 3.5f);
 
+        if (host.IsPlayer) {
+            SoundManager.main.PlaySound(GameSoundType.Growl, transform.position, false);
+        } else {
+            SoundManager.main.PlaySound(GameSoundType.Growl, transform.position);
+        }
+
         if (hit)
         {
             if (hitData.collider != null)
@@ -70,6 +76,12 @@ public class Swiping : MonoBehaviour
         RaycastHit hitData;
         var rayDirection = playerCamera.transform.forward;
         bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData, 3.5f);
+
+        if (host.IsPlayer) {
+            SoundManager.main.PlaySound(GameSoundType.Growl, transform.position, false);
+        } else {
+            SoundManager.main.PlaySound(GameSoundType.Growl, transform.position);
+        }
 
         if (hit)
         {

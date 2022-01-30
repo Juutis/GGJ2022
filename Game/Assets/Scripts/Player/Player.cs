@@ -175,6 +175,7 @@ public class Player : MonoBehaviour
         {
             yVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpStarted = false;
+            SoundManager.main.PlaySound(GameSoundType.Jump, transform.position, false);
         }
         else if (jumpStarted && host.TargetType != TargetEntityType.Human)
         {
@@ -185,6 +186,7 @@ public class Player : MonoBehaviour
             jumpStarted = false;
             jumpOngoing = true;
             leapCharge = startCharge;
+            SoundManager.main.PlaySound(GameSoundType.Leap, transform.position, false);
         }
 
         yVel += gravity * Time.deltaTime;

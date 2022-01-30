@@ -53,8 +53,15 @@ public class Killable : MonoBehaviour
         if (!IsEnabled) {
             return false;
         }
+
         bool hostDied = false;
         currentHp -= amount;
+        bool is3d = !host.IsPlayer;
+        if (host.TargetType == TargetEntityType.Human) {
+            SoundManager.main.PlaySound(GameSoundType.ManHit, transform.position, is3d);
+        } else {
+            SoundManager.main.PlaySound(GameSoundType.WolfHit, transform.position, is3d);
+        }
         materials.ForEach(x => x.color = Color.Lerp(Color.red, defaultColors[x], 0.5f));
         StartCoroutine(SetDefaultColors());
 

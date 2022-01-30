@@ -33,6 +33,9 @@ public class MeleeFighter : MonoBehaviour
     {
         if (target != null) {
             if (Vector3.Distance(damagePosition.position, target.transform.position) < range) {
+                   
+                SoundManager.main.PlaySound(GameSoundType.Growl, transform.position);
+        
                 charAnim.Attack();
             }
         }
