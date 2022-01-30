@@ -10,7 +10,7 @@ public class PlayerAlignment : MonoBehaviour
         main = this;
     }
 
-    private int step = 20;
+    private int step = 3;
 
     private readonly int maxAligment = 100;
     private readonly int minAlignment = 0;
