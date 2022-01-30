@@ -51,6 +51,12 @@ public class Shooting : MonoBehaviour
             anim.SetTrigger("Reload");
         }
 
+        if (host.IsPlayer) {
+            SoundManager.main.PlaySound(GameSoundType.Gunshot, transform.position, false);
+        } else {
+            SoundManager.main.PlaySound(GameSoundType.Gunshot, transform.position);
+        }
+
         anim.SetTrigger("Shoot");
         particles.Play();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));

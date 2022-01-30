@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DayCycleConfig
   m_EditorClassIdentifier: 
   DayLength: 60
-  DawnAmbientColor: {r: 1, g: 0.454687, b: 0, a: 0}
-  DayAmbientColor: {r: 1, g: 1, b: 1, a: 0}
-  DuskAmbientColor: {r: 1, g: 0.45490196, b: 0, a: 0}
-  NightAmbientColor: {r: 0.03177287, g: 0.055571426, b: 0.3207547, a: 0}
+  DawnAmbientColor: {r: 0.3962264, g: 0.19756351, b: 0.031772878, a: 0}
+  DayAmbientColor: {r: 0.8117647, g: 0.8117647, b: 0.8117647, a: 0}
+  DuskAmbientColor: {r: 0.3584906, g: 0.17506093, b: 0.021982923, a: 0}
+  NightAmbientColor: {r: 0, g: 0.0039245193, b: 0.11372549, a: 0}
   DawnSkyColor: {r: 1, g: 0.45490196, b: 0, a: 0}
-  DaySkyColor: {r: 0.5896226, g: 0.9227525, b: 1, a: 0}
+  DaySkyColor: {r: 0.43921566, g: 0.65598255, b: 1, a: 1}
   DuskSkyColor: {r: 1, g: 0.45490196, b: 0, a: 0}
   NightSkyColor: {r: 0.08290317, g: 0.15777391, b: 0.254717, a: 0}

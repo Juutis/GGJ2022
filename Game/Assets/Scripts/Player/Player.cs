@@ -193,10 +193,12 @@ public class Player : MonoBehaviour
         {
             yVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpStarted = false;
+            SoundManager.main.PlaySound(GameSoundType.Jump, transform.position, false);
         }
 
         if (leapStarted && host.TargetType != TargetEntityType.Human)
         {
+            SoundManager.main.PlaySound(GameSoundType.Leap, transform.position, false);
             var leapXZ = leapDirection.normalized;
             leapXZ.y = 0;
             var leapY = leapDirection.normalized.y;

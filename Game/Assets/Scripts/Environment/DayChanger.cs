@@ -64,29 +64,46 @@ public class DayChanger : MonoBehaviour
 
     private void handleColors() {
         Color startAmbientColor, endAmbientColor, startSkyColor, endSkyColor;
-        if (timeOfDay < 0.25) {
+        float k;
+        if (timeOfDay < 0.1) {
             startAmbientColor = config.DawnAmbientColor;
             endAmbientColor = config.DayAmbientColor;
             startSkyColor = config.DawnSkyColor;
             endSkyColor = config.DaySkyColor;
+            k = 0.1f;
+        } else if (timeOfDay < 0.4) {
+            startAmbientColor = config.DayAmbientColor;
+            endAmbientColor = config.DayAmbientColor;
+            startSkyColor = config.DaySkyColor;
+            endSkyColor = config.DaySkyColor;
+            k = 1.0f;
         } else if (timeOfDay < 0.5) {
             startAmbientColor = config.DayAmbientColor;
             endAmbientColor = config.DuskAmbientColor;
             startSkyColor = config.DaySkyColor;
             endSkyColor = config.DuskSkyColor;
-        } else if (timeOfDay < 0.75) {
+            k = 0.1f;
+        } else if (timeOfDay < 0.52) {
             startAmbientColor = config.DuskAmbientColor;
             endAmbientColor = config.NightAmbientColor;
             startSkyColor = config.DuskSkyColor;
             endSkyColor = config.NightSkyColor;
+            k = 0.02f;
+        } else if (timeOfDay < 0.98) {
+            startAmbientColor = config.NightAmbientColor;
+            endAmbientColor = config.NightAmbientColor;
+            startSkyColor = config.NightSkyColor;
+            endSkyColor = config.NightSkyColor;
+            k = 1.0f;
         } else {
             startAmbientColor = config.NightAmbientColor;
             endAmbientColor = config.DawnAmbientColor;
             startSkyColor = config.NightSkyColor;
             endSkyColor = config.DawnSkyColor;
+            k = 0.02f;
         }
 
-        var t = timeOfDay % 0.25f * 4.0f;
+        float t = timeOfDay % k * (1/k);
         Color ambientColor = Color.Lerp(startAmbientColor, endAmbientColor, t);
         Color skyColor = Color.Lerp(startSkyColor, endSkyColor, t);
 
