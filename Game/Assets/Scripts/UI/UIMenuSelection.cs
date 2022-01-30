@@ -44,7 +44,9 @@ public class UIMenuSelection : MonoBehaviour
         txtTitle.text = selectionType == UISelectionType.Continue ? "Continue" : (
             selectionType == UISelectionType.MeinMenu ? "Main menu" : (
                 selectionType == UISelectionType.Start ? "Start game" : (
-                    selectionType == UISelectionType.MouseSensitivity ? "Sensitivity" : "Restart"
+                    selectionType == UISelectionType.MouseSensitivity ? "Sensitivity" : (
+                        selectionType == UISelectionType.Exit ? "Quit game" : "Restart"
+                    )
                 )
             )
         );
