@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Spawner : MonoBehaviour
 {
+    private GameObject player;
+
     [SerializeField]
     private Killable thingToSpawn;
 
@@ -22,6 +24,8 @@ public class Spawner : MonoBehaviour
     {
         InvokeRepeating("Spawn", 1.0f, 1.0f);
         groundLayerMask = LayerMask.GetMask("Ground");
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -32,7 +36,7 @@ public class Spawner : MonoBehaviour
     public void Spawn() {
         removeKilledKillables();
 
-        if (spawnedKillables.Count < count && timeToSpawn()) {
+        if (spawnedKillables.Count < count && timeToSpawn() && Vector3.Distance(transform.position, player.transform.position) > 25.0f) {
             RaycastHit hit;
             var didHit = Physics.Raycast(transform.position, Vector3.down, out hit, 1000, groundLayerMask);
 

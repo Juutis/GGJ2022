@@ -63,8 +63,6 @@ public class Swiping : MonoBehaviour
                     Killable killable = target.GetComponentInParent<Killable>();
                     if (killable != null)
                     {
-                        killable.DealDamage(3, hitData.point, rayDirection, 150.0f);
-                        // hitParticles.Play();
                         bool targetDied = killable.DealDamage(2, hitData.point, rayDirection, 100.0f);
                         if (host.IsPlayer && targetDied) {
                             PlayerAlignment.main.MoveAlignment(host, killable.gameObject);
@@ -87,7 +85,10 @@ public class Swiping : MonoBehaviour
         var killables = CheckFront();
         foreach (var killable in killables) {
             var dir = killable.transform.position - transform.position;
-            killable.DealDamage(10, heavySwipePoint.position, dir, 150f);
+            bool targetDied = killable.DealDamage(10, heavySwipePoint.position, dir, 150f);
+            if (host.IsPlayer && targetDied) {
+                PlayerAlignment.main.MoveAlignment(host, killable.gameObject);
+            }
         }
     }
 
