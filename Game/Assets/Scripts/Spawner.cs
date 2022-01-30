@@ -40,6 +40,7 @@ public class Spawner : MonoBehaviour
                 var obj = Instantiate(thingToSpawn);
                 obj.transform.position = hit.point + Vector3.up * 1.0f;
                 nextSpawn = Time.time + Random.Range(20f, 30f);
+                spawnedKillables.Add(obj);
             } else {
                 Debug.LogError("CAN'T SPAWN HERE", this);
             }
@@ -47,10 +48,14 @@ public class Spawner : MonoBehaviour
     }
 
     private void removeKilledKillables() {
+        var killablesToRemove = new List<Killable>();
         foreach(var killable in spawnedKillables) {
             if (!killable.IsAlive()) {
-                spawnedKillables.Remove(killable);
+                killablesToRemove.Add(killable);
             }
+        }
+        foreach(var killable in killablesToRemove) {
+            spawnedKillables.Remove(killable);
         }
     }
 

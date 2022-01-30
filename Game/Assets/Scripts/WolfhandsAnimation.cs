@@ -41,6 +41,10 @@ public class WolfhandsAnimation : MonoBehaviour
         triggerAttack(false);
     }
 
+    public void Leap(bool leaping) {
+        anim.SetBool("Leap", leaping);
+    }
+
     private void triggerAttack(bool isPowerAttack) {
         if (isAttacking) return;
 

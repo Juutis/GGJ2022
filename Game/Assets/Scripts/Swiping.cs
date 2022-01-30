@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Swiping : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class Swiping : MonoBehaviour
     [SerializeField]
     private bool isPlayer;
     private TargetEntity host;
+
+    [SerializeField]
+    private Transform heavySwipePoint;
+
+    [SerializeField]
+    private float heavySwipeRadius;
 
 
 
@@ -72,34 +79,31 @@ public class Swiping : MonoBehaviour
     {
         // particles.Play();
         handAnimation.PowerAttack();
-        Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
-        RaycastHit hitData;
-        var rayDirection = playerCamera.transform.forward;
-        bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData, 3.5f);
+        SwipeFront();
+    }
 
-        if (host.IsPlayer) {
-            SoundManager.main.PlaySound(GameSoundType.Growl, transform.position, false);
-        } else {
-            SoundManager.main.PlaySound(GameSoundType.Growl, transform.position);
-        }
+    public void SwipeFront() {
 
-        if (hit)
-        {
-            if (hitData.collider != null)
-            {
-                TargetEntity targetEntity = hitData.collider.gameObject.GetComponentInParent<TargetEntity>();
-                if (targetEntity == null) return;
-                if (targetEntity.TargetType != host.TargetType)
-                {
-                    GameObject target = hitData.collider.gameObject;
-                    Killable killable = target.GetComponentInParent<Killable>();
-                    if (killable != null)
-                    {
-                        killable.DealDamage(10, hitData.point, rayDirection, 200.0f);
-                        // hitParticles.Play();
-                    }
-                }
-            }
+        var killables = CheckFront();
+        foreach (var killable in killables) {
+            var dir = killable.transform.position - transform.position;
+            killable.DealDamage(10, heavySwipePoint.position, dir, 150f);
         }
+    }
+
+    public void PrepareLeap(bool leaping) {
+        handAnimation.Leap(leaping);
+    }
+
+    public List<Killable> CheckFront() {
+        return TargetEntityManager.main.Targets
+            .FindAll(target => target.TargetType == TargetEntityType.Human && IsWithinDamageRange(target))
+            .Select(it => it.GetComponent<Killable>())
+            .ToList();
+    }
+
+    private bool IsWithinDamageRange(TargetEntity candidate) {
+        var distance = Vector3.Distance(heavySwipePoint.position, candidate.transform.position);
+        return distance < heavySwipeRadius;
     }
 }

@@ -37,16 +37,22 @@ public class Player : MonoBehaviour
     private float gravity = -9.81f * 3f;
     private float jumpHeight = 2f;
     private float yVel = 0f;
-    private float xVel = 0f;
+    private Vector3 xVel;
     private float leapCharge = 0f;
-    private float startCharge = 3f;
+    private float maxChargeDuration = 2.0f;
     private bool charging = false;
+    private float chargeStarted;
     private bool leapNoMovement = false;
     private float checkDistance = 0.4f;
     private bool isGrounded;
     private bool jumpStarted = false;
     private bool jumpOngoing = false; // werewolf leaping
-    private float jumpStartedTime;
+    private float leapStartedTime;
+
+    private bool leapStarted;
+    private bool leapOnGoing;
+
+    private Vector3 leapDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +70,6 @@ public class Player : MonoBehaviour
 
         werewolfParts.SetActive(host.TargetType == TargetEntityType.Werewolf);
         humanParts.SetActive(host.TargetType == TargetEntityType.Human);
-        leapCharge = startCharge;
     }
 
     // Update is called once per frame
@@ -113,24 +118,36 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyUp(KeyCode.Space) && isGrounded)
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                jumpStarted = true;
+            }
+            if (Input.GetMouseButtonUp(1) && isGrounded)
             {
                 charging = false;
-                jumpStarted = true;
-                jumpStartedTime = Time.time;
-                // TODO: stop updating movement direction. => can look around but don't rotate direction
-            }
-
-            if (Input.GetKey(KeyCode.Space) && isGrounded)
-            {
-                charging = true;
+                leapStarted = true;
+                leapStartedTime = Time.time;
                 leapNoMovement = true;
-                moveDir = Vector3.zero;
+                leapDirection = cameraObject.forward;
+                leapCharge = Mathf.Min(Time.time - chargeStarted, maxChargeDuration) / maxChargeDuration; // 0.0f - 1.0f
             }
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(1) && isGrounded)
+            {
+                if (!charging) {
+                    chargeStarted = Time.time;
+                }
+                charging = true;
+                swiping.PrepareLeap(true);
+            }
+
+            if (Input.GetMouseButton(0) && !charging)
             {
                 swiping.NormalSwipe();
+            }
+
+            if (swiping.CheckFront().Count > 0) {
+                EndLeap();
             }
         }
 
@@ -156,37 +173,42 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        var minLeap = Mathf.Lerp(0.3f, 1.0f, leapCharge);
+
         isGrounded = Physics.CheckSphere(groundCheck.position, checkDistance, groundMask);
 
-        if (isGrounded && yVel < 0)
+        if (isGrounded && yVel < 0 && Time.time - leapStartedTime > minLeap)
         {
             leapNoMovement = false;
             yVel = -2f;
-            xVel = 0f;
+            xVel = Vector3.zero;
         }
 
-        if (isGrounded && jumpOngoing && (Time.time - jumpStartedTime) > 0.333f)
+        if (isGrounded && leapOnGoing && (Time.time - leapStartedTime) > minLeap && host.TargetType != TargetEntityType.Human)
         {
-            jumpOngoing = false;
-            swiping.HeavySwipe();
+            EndLeap();
         }
 
-        if (jumpStarted && host.TargetType == TargetEntityType.Human)
+        if (jumpStarted)
         {
             yVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpStarted = false;
             SoundManager.main.PlaySound(GameSoundType.Jump, transform.position, false);
         }
-        else if (jumpStarted && host.TargetType != TargetEntityType.Human)
-        {
-            float yCharge = Mathf.Max(leapCharge * 0.08f, jumpHeight * 0.5f);
-            yVel = Mathf.Sqrt(yCharge * -2f * gravity);
-            xVel = Mathf.Sqrt(leapCharge * -2f * gravity);
 
-            jumpStarted = false;
-            jumpOngoing = true;
-            leapCharge = startCharge;
+        if (leapStarted && host.TargetType != TargetEntityType.Human)
+        {
             SoundManager.main.PlaySound(GameSoundType.Leap, transform.position, false);
+            var leapXZ = leapDirection.normalized;
+            leapXZ.y = 0;
+            var leapY = leapDirection.normalized.y;
+            var yStrength = Mathf.Lerp(0.25f, 1.0f, leapCharge);
+
+            yVel = 50.0f * leapY * yStrength;
+            xVel = 50.0f * leapXZ;
+
+            leapStarted = false;
+            leapOnGoing = true;
         }
 
         yVel += gravity * Time.deltaTime;
@@ -195,7 +217,7 @@ public class Player : MonoBehaviour
         controller.Move(
             (transform.right * moveDir.x + transform.forward * moveDir.z) * movementSpeed * moveBuff * Time.deltaTime +
             transform.up * yVel * Time.deltaTime +
-            transform.forward * xVel * Time.deltaTime
+            xVel * Time.deltaTime
         );
 
         float lookSpeedBuff = host.TargetType == TargetEntityType.Human ? 1 : wolfLookSpeedBuff;
@@ -203,10 +225,13 @@ public class Player : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90, 90);
         cameraObject.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.Rotate(Vector3.up, mouseX * mouseSensitivity * lookSpeedBuff);
+    }
 
-        if (charging)
-        {
-            leapCharge += Time.deltaTime * leapChargeSpeed;
+    private void EndLeap() {
+        if (leapOnGoing) {
+            leapOnGoing = false;
+            swiping.HeavySwipe();
+            swiping.PrepareLeap(false);
         }
     }
 }

@@ -134,6 +134,7 @@ public class TargetEntity : MonoBehaviour
     {
         targetType = type;
         UICurrentFaction.main.SetFaction(type);
+        raycastCollider.gameObject.layer = TargetEntityManager.main.GetFriendlyFactionLayer(this);
     }
 
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     [SerializeField]
+    private Animator anim;
+
+    [SerializeField]
     private ParticleSystem particles;
     [SerializeField]
     private Camera playerCamera;
@@ -44,7 +47,8 @@ public class Shooting : MonoBehaviour
         shots--;
 
         if (shots == 0) {
-            Invoke("Reload", 1.5f);
+            Invoke("Reload", 1.25f);
+            anim.SetTrigger("Reload");
         }
 
         if (host.IsPlayer) {
@@ -53,6 +57,7 @@ public class Shooting : MonoBehaviour
             SoundManager.main.PlaySound(GameSoundType.Gunshot, transform.position);
         }
 
+        anim.SetTrigger("Shoot");
         particles.Play();
         Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
 
@@ -62,7 +67,7 @@ public class Shooting : MonoBehaviour
 
         for (var i = 0; i < pellets; i++) {
 
-            Debug.Log("raycasting " + i + " " + pellets);
+            // Debug.Log("raycasting " + i + " " + pellets);
 
             RaycastHit hitData;
             

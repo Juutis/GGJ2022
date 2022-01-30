@@ -9,6 +9,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3767970702361430103, guid: cd2b9789b3cf81645bc1ad83b4dea15d,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 3767970702361430103, guid: cd2b9789b3cf81645bc1ad83b4dea15d,
+        type: 3}
       propertyPath: m_Name
       value: Werewolf 1 Spawner
       objectReference: {fileID: 0}
