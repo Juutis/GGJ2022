@@ -23,6 +23,7 @@ public class UIAlignmentBar : MonoBehaviour
     }
     public void SetAlignment(int value) {
         slider.value = value;
+        currentValue = value;
     }
 
     public void Update() {
