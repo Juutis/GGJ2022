@@ -21,11 +21,14 @@ public class UIMenuSelection : MonoBehaviour
     private void Start()
     {
         txtTitle.text = selectionType == UISelectionType.Continue ? "Continue" : (
-            selectionType == UISelectionType.MeinMenu ? "Main menu" : "Restart"
+            selectionType == UISelectionType.MeinMenu ? "Main menu" : (
+                selectionType == UISelectionType.Start ? "Start game" : "Restart"
+            )
         );
     }
 
-    public void SetSprite(Sprite sprite) {
+    public void SetSprite(Sprite sprite)
+    {
         imgSelector.sprite = sprite;
     }
 

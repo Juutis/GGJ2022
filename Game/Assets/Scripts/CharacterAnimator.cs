@@ -41,7 +41,9 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     public void StopAim() {
-        aim.SetAiming(false);
+        if (aim != null) {
+            aim.SetAiming(false);
+        }
     }
     
 }

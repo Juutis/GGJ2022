@@ -43,6 +43,12 @@ public class RangedFighter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!alive) {
+            if (charAnim != null) {
+                charAnim.StopAim();
+            }
+            return;
+        }
         if (target != null) {
             if (!firing) {
                 firing = true;
@@ -56,9 +62,13 @@ public class RangedFighter : MonoBehaviour
         }
 
         if (firing) {
-            charAnim.AimAt(lastKnownTargetPos);
+            if (charAnim != null) {
+                charAnim.AimAt(lastKnownTargetPos);
+            }
         } else {
-            charAnim.StopAim();
+            if (charAnim != null) {
+                charAnim.StopAim();
+            }
         }
     }
 
@@ -82,6 +92,7 @@ public class RangedFighter : MonoBehaviour
         bool hit = Physics.Raycast(rayOrigin, rayDirection, out hitData);
 
         muzzle.Play();
+        SoundManager.main.PlaySound(GameSoundType.Gunshot, transform.position, true);
 
         if (hit)
         {

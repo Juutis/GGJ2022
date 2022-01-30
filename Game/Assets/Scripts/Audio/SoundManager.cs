@@ -7,6 +7,9 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager main;
 
+    [SerializeField]
+    private float spatialBlend = 1f;
+
     private void Awake() {
         main = this;
     }
@@ -22,7 +25,7 @@ public class SoundManager : MonoBehaviour
             AudioSource audio = gameSound.Get();
             if (audio != null) {
                 if (is3D) {
-                    audio.spatialBlend = 0.75f;
+                    audio.spatialBlend = spatialBlend;
                 } else {
                     audio.spatialBlend = 0;
                 }

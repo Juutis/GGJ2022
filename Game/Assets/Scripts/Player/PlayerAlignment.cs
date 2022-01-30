@@ -29,14 +29,22 @@ public class PlayerAlignment : MonoBehaviour
         bool towardsLycantrophy = killedTargetEntity.TargetType == TargetEntityType.Human;
         int aligmentChange = towardsLycantrophy ? -step : step;
         currentAlignment = System.Math.Clamp(currentAlignment + aligmentChange, minAlignment, maxAligment);
+        UIAlignmentBar.main.SetAlignment(currentAlignment);
         if (currentAlignment == maxAligment)
         {
-            Debug.Log("<color=gray><i>You are finally rid of lycantrophy and have become a boring full-ass human again...</i></color>");
+            UIMenu.main.Show(
+                host.TargetType,
+                "<color=gray><i>You are finally rid of lycantrophy and have become a boring full-ass human again...</i></color>",
+                true
+            );
         }
         else if (currentAlignment == minAlignment)
         {
-            Debug.Log("<color=red><b>You have become a FULL BLOWN WEREWOLF! AAAAAAAH!!!</b></color>");
+            UIMenu.main.Show(
+                host.TargetType,
+                "<color=red><b>You have become a FULL BLOWN WEREWOLF! AAAAAAAH!!!</b></color>",
+                true
+            );
         }
-        UIAlignmentBar.main.SetAlignment(currentAlignment);
     }
 }

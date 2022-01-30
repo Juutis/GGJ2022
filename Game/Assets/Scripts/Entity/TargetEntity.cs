@@ -104,6 +104,8 @@ public class TargetEntity : MonoBehaviour
         {
             navigation.Kill();
             //Destroy(gameObject);
+        } else {
+            UIMenu.main.Show(targetType, "Game over\nYou died!", true);
         }
     }
 
