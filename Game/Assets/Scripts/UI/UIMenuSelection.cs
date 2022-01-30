@@ -62,6 +62,9 @@ public class UIMenuSelection : MonoBehaviour
     }
 
     public void RightReset() {
+        if (imgRight == null) {
+            return;
+        }
         imgRight.color = originalColor;
     }
     public void Left() {
@@ -74,6 +77,9 @@ public class UIMenuSelection : MonoBehaviour
     }
 
     public void LeftReset() {
+        if (imgLeft == null) {
+            return;
+        }
         imgLeft.color = originalColor;
     }
 
