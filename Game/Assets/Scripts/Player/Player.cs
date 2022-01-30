@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private MouseConfig mouseConfig;
+    [SerializeField]
     private bool hideMouse;
     [SerializeField]
     private float mouseSensitivity;
@@ -31,8 +33,10 @@ public class Player : MonoBehaviour
     private Vector3 moveDir;
     private Swiping swiping;
     private Shooting shooting;
+
     private float mouseX;
     private float mouseY;
+
     private float xRotation = 0f;
     private float gravity = -9.81f * 3f;
     private float jumpHeight = 2f;
@@ -167,8 +171,8 @@ public class Player : MonoBehaviour
         humanParts.SetActive(host.TargetType == TargetEntityType.Human);
         werewolfParts.SetActive(host.TargetType == TargetEntityType.Werewolf);
 
-        mouseX = Input.GetAxis("Mouse X");
-        mouseY = Input.GetAxis("Mouse Y");
+        mouseX = Input.GetAxis("Mouse X") * mouseConfig.SensitivityFactor;
+        mouseY = Input.GetAxis("Mouse Y") * mouseConfig.SensitivityFactor;
     }
 
     void FixedUpdate()
