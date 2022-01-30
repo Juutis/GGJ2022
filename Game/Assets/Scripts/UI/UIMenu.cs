@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class UIMenu : MonoBehaviour
 {
     public static UIMenu main;
-    private void Awake() {
+    private void Awake()
+    {
         main = this;
     }
 
@@ -53,42 +54,59 @@ public class UIMenu : MonoBehaviour
 
     private TargetEntityType currentFaction;
 
-    private void Start() {
+    private void Start()
+    {
         /*if (selections.Count > 0) {
             CurrentSelection = selections[selectorIndex];
         }*/
-        if (IsMainMenu) {
+        if (IsMainMenu)
+        {
             Show(TargetEntityType.Human, "- The night beckons -", true);
         }
     }
 
-    public void Show(TargetEntityType faction, string message = "- Game paused -\n\n <i>Press P to continue</i> ", bool hideContinue = false) {
+    public void Show(TargetEntityType faction, string message = "- Game paused -\n\n <i>Press P to continue</i> ", bool hideContinue = false)
+    {
         currentFaction = faction;
         Time.timeScale = 0f;
         IsShowing = true;
         selections = new List<UIMenuSelection>();
         txtMessage.text = message;
-        if (!hideContinue) {
+        if (!hideContinue)
+        {
             continueSelection.gameObject.SetActive(true);
             selections.Add(continueSelection);
         }
-        if (IsMainMenu) {
+        else
+        {
+            continueSelection.gameObject.SetActive(false);
+        }
+        if (IsMainMenu)
+        {
             startSelection.gameObject.SetActive(true);
             selections.Add(startSelection);
-        } else {
+            mainmenuSelection.gameObject.SetActive(false);
+            restartSelection.gameObject.SetActive(false);
+        }
+        else
+        {
             selections.Add(mainmenuSelection);
             mainmenuSelection.gameObject.SetActive(true);
             selections.Add(restartSelection);
             restartSelection.gameObject.SetActive(true);
         }
-        foreach(UIMenuSelection selection in selections) {
+        foreach (UIMenuSelection selection in selections)
+        {
             selection.SetSprite(faction == TargetEntityType.Werewolf ? werewolfSelectorSprite : humanSelectorSprite);
             selection.SetSelected(false);
         }
-        if (IsMainMenu) {
+        if (IsMainMenu)
+        {
             mainMenuConcept.SetActive(true);
             imgConcept.enabled = false;
-        } else {
+        }
+        else
+        {
             mainMenuConcept.SetActive(false);
             imgConcept.enabled = true;
             imgConcept.sprite = faction == TargetEntityType.Werewolf ? wereWolfConceptArt : humanConceptArt;
@@ -98,88 +116,118 @@ public class UIMenu : MonoBehaviour
         animator.SetTrigger("Show");
     }
 
-    public void Hide() {
+    public void Hide()
+    {
         IsHiding = true;
         animator.SetTrigger("Hide");
     }
 
-    public void WasShown() {
+    public void WasShown()
+    {
         IsShowing = false;
         IsEnabled = true;
     }
 
-    public void WasHidden() {
+    public void WasHidden()
+    {
         IsHiding = false;
         IsEnabled = false;
         Time.timeScale = 1f;
     }
 
-    public void MoveSelector (bool directionDown) {
-        if (directionDown) {
-            if (selectorIndex < selections.Count - 1) {
+    public void MoveSelector(bool directionDown)
+    {
+        if (directionDown)
+        {
+            if (selectorIndex < selections.Count - 1)
+            {
                 selectorIndex += 1;
-            } else {
+            }
+            else
+            {
                 return;
             }
-        } else {
-            if (selectorIndex > 0) {
+        }
+        else
+        {
+            if (selectorIndex > 0)
+            {
                 selectorIndex -= 1;
-            } else {
+            }
+            else
+            {
                 return;
             }
         }
         SoundManager.main.PlaySound(GameSoundType.Jump, transform.position, false);
 
         CurrentSelection = selections[selectorIndex];
-        foreach(UIMenuSelection selection in selections) {
-            if (selection.IsSelected) {
+        foreach (UIMenuSelection selection in selections)
+        {
+            if (selection.IsSelected)
+            {
                 selection.SetSelected(false);
             }
         }
         CurrentSelection.SetSelected(true);
     }
 
-    private void Update() {
-        if (!IsEnabled) {
-            if (!IsMainMenu && !IsShowing && Input.GetKeyDown(KeyCode.P)){
+    private void Update()
+    {
+        if (!IsEnabled)
+        {
+            if (!IsMainMenu && !IsShowing && Input.GetKeyDown(KeyCode.P))
+            {
                 Show(TargetEntityManager.main.Player.TargetType);
             }
             return;
         }
-        if (!IsMainMenu && !IsShowing && !IsHiding && Input.GetKeyDown(KeyCode.P)) {
+        if (!IsMainMenu && !IsShowing && !IsHiding && Input.GetKeyDown(KeyCode.P))
+        {
             Hide();
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
             MoveSelector(true);
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
             MoveSelector(false);
         }
-        if (Input.GetKeyDown(KeyCode.Return)) {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
             Select();
         }
     }
 
-    public void Select() {
+    public void Select()
+    {
         selectorIndex = 0;
         UISelectionType selectionType = CurrentSelection.SelectionType;
-        if (currentFaction == TargetEntityType.Human) {
+        if (currentFaction == TargetEntityType.Human)
+        {
             SoundManager.main.PlaySound(GameSoundType.Gunshot, Vector3.zero, false);
-        } else {
+        }
+        else
+        {
             SoundManager.main.PlaySound(GameSoundType.Growl, Vector3.zero, false);
         }
-        if (selectionType == UISelectionType.Continue) {
+        if (selectionType == UISelectionType.Continue)
+        {
             Hide();
         }
-        if (selectionType == UISelectionType.MeinMenu) {
+        if (selectionType == UISelectionType.MeinMenu)
+        {
             Time.timeScale = 1f;
             SceneManager.LoadScene(0);
         }
-        if (selectionType == UISelectionType.Restart) {
+        if (selectionType == UISelectionType.Restart)
+        {
             Time.timeScale = 1f;
             SceneManager.LoadScene(1);
         }
-        if (selectionType == UISelectionType.Start) {
+        if (selectionType == UISelectionType.Start)
+        {
             IsEnabled = false;
             Time.timeScale = 1f;
             MusicPlayer.main.FadeOutMenuMusic(1f);
@@ -187,14 +235,16 @@ public class UIMenu : MonoBehaviour
         }
     }
 
-    public void StartAfterFade() {
+    public void StartAfterFade()
+    {
         SceneManager.LoadScene(1);
     }
 
 }
 
 
-public enum UISelectionType {
+public enum UISelectionType
+{
     Continue,
     Restart,
     MeinMenu,
