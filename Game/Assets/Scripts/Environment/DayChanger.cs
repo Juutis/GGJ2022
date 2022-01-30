@@ -53,11 +53,13 @@ public class DayChanger : MonoBehaviour
         NightLight.enabled = true;
         RenderSettings.ambientLight = Color.red;
         RenderSettings.skybox.SetColor("_Tint", Color.red);
+        MusicPlayer.main.SwitchMusic(false);
     }
 
     private void day() {
         DayLight.enabled = true;
         NightLight.enabled = false;
+        MusicPlayer.main.SwitchMusic(true);
     }
 
     private void handleColors() {
