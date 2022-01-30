@@ -13,12 +13,19 @@ public class UIAlignmentBar : MonoBehaviour
     [SerializeField]
     private Slider slider;
 
+    private int currentValue;
+
     public void Initialize(int min, int max, int currentValue) {
         slider.minValue = min;
         slider.maxValue = max;
         slider.value = currentValue;
+        this.currentValue = currentValue;
     }
     public void SetAlignment(int value) {
         slider.value = value;
+    }
+
+    public void Update() {
+        slider.value = currentValue;
     }
 }
