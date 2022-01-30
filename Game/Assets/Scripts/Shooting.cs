@@ -56,7 +56,7 @@ public class Shooting : MonoBehaviour
 
         for (var i = 0; i < pellets; i++) {
 
-            Debug.Log("raycasting " + i + " " + pellets);
+            // Debug.Log("raycasting " + i + " " + pellets);
 
             RaycastHit hitData;
             
