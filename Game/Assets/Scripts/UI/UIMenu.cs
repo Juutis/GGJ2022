@@ -24,6 +24,8 @@ public class UIMenu : MonoBehaviour
     private UIMenuSelection startSelection;
     [SerializeField]
     private UIMenuSelection sensitivitySelection;
+    [SerializeField]
+    private UIMenuSelection exitSelection;
 
     private int selectorIndex = 0;
 
@@ -93,12 +95,15 @@ public class UIMenu : MonoBehaviour
             mainmenuSelection.gameObject.SetActive(false);
             restartSelection.gameObject.SetActive(false);
         }
-        if (!IsMainMenu && hideContinue) {
+        if (!IsMainMenu && hideContinue)
+        {
             sensitivitySelection.gameObject.SetActive(false);
-        } else {
+        }
+        else
+        {
             sensitivitySelection.gameObject.SetActive(true);
             sensitivitySelection.SetValue(mouseConfig.Sensitivity);
-           selections.Add(sensitivitySelection);
+            selections.Add(sensitivitySelection);
         }
         if (!IsMainMenu)
         {
@@ -106,6 +111,14 @@ public class UIMenu : MonoBehaviour
             mainmenuSelection.gameObject.SetActive(true);
             selections.Add(restartSelection);
             restartSelection.gameObject.SetActive(true);
+            exitSelection.gameObject.SetActive(false);
+        }
+        else
+        {
+            # if !UNITY_WEBGL
+                exitSelection.gameObject.SetActive(true);
+                selections.Add(exitSelection);
+            # endif
         }
         foreach (UIMenuSelection selection in selections)
         {
@@ -227,7 +240,8 @@ public class UIMenu : MonoBehaviour
         UISelectionType selectionType = CurrentSelection.SelectionType;
         if (selectionType == UISelectionType.MouseSensitivity)
         {
-            if (mouseConfig.DecreaseSensitivity()) {
+            if (mouseConfig.DecreaseSensitivity())
+            {
                 sensitivitySelection.Left();
             }
             sensitivitySelection.SetValue(mouseConfig.Sensitivity);
@@ -238,7 +252,8 @@ public class UIMenu : MonoBehaviour
         UISelectionType selectionType = CurrentSelection.SelectionType;
         if (selectionType == UISelectionType.MouseSensitivity)
         {
-            if (mouseConfig.IncreaseSensitivity()) {
+            if (mouseConfig.IncreaseSensitivity())
+            {
                 sensitivitySelection.Right();
             }
             sensitivitySelection.SetValue(mouseConfig.Sensitivity);
@@ -278,6 +293,10 @@ public class UIMenu : MonoBehaviour
             MusicPlayer.main.FadeOutMenuMusic(1f);
             Invoke("StartAfterFade", 1.2f);
         }
+        if (selectionType == UISelectionType.Exit)
+        {
+            Application.Quit();
+        }
     }
 
     public void StartAfterFade()
@@ -294,5 +313,6 @@ public enum UISelectionType
     Restart,
     MeinMenu,
     Start,
-    MouseSensitivity
+    MouseSensitivity,
+    Exit
 }
