@@ -12,8 +12,8 @@ public class PlayerAlignment : MonoBehaviour
 
     private int step = 20;
 
-    private int maxAligment = 100;
-    private int minAlignment = 0;
+    private readonly int maxAligment = 100;
+    private readonly int minAlignment = 0;
 
     private int currentAlignment = 50;
 

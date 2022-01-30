@@ -39,18 +39,21 @@ public class Killable : MonoBehaviour
     {
     }
 
-    public void Die() {
+    public void Die()
+    {
         TargetEntityManager.main.KillTarget(host);
         IsEnabled = false;
     }
 
-    public bool IsAlive() {
+    public bool IsAlive()
+    {
         return IsEnabled;
     }
 
     public bool DealDamage(float amount, Vector3 hitPosition, Vector3 hitDirection, float forceAmount)
     {
-        if (!IsEnabled) {
+        if (!IsEnabled)
+        {
             return false;
         }
         bool hostDied = false;
@@ -62,14 +65,19 @@ public class Killable : MonoBehaviour
         if (currentHp <= 0)
         {
             hostDied = true;
-            ragdoll.Activate(hitPosition, hitDirection, forceAmount);
+            if (ragdoll != null)
+            {
+                ragdoll.Activate(hitPosition, hitDirection, forceAmount);
+            }
             Die();
         }
         return hostDied;
     }
 
-    private void UpdateHealthBar() {
-        if (host.IsPlayer) {
+    private void UpdateHealthBar()
+    {
+        if (host.IsPlayer)
+        {
             UIHealthBar.main.SetHealth(Mathf.Clamp(currentHp / config.MaxHP, 0, 1));
         }
     }
