@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         shooting = GetComponent<Shooting>();
         if (hideMouse)
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
         xRotation = -10;

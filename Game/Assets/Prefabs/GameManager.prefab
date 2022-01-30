@@ -151,14 +151,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSeenColor: {r: 0.8194237, g: 0, b: 1, a: 1}
   IsNearbyColor: {r: 0, g: 0.79450417, b: 1, a: 1}
-  debugRays: 1
-  debugEntityMaterials: 1
+  debugRays: 0
+  debugEntityMaterials: 0
   humanFov:
-    distance: 50
+    distance: 100
     viewAngle: 75
     detectInterval: 0.2
   werewolfFov:
-    distance: 50
+    distance: 100
     viewAngle: 75
     detectInterval: 0.2
   werewolfSprite: {fileID: 21300000, guid: b6b96d3be2afc4b468d24be24dc58c4c, type: 3}

@@ -551,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83cb9a36db57ac42b9e3dc530c51678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
+  damage: 5
   muzzle: {fileID: 9203249400494642495}
   bloodEffect: {fileID: 8989479543215831156, guid: dc056c0130db7de419881ee7360f8a22,
     type: 3}
