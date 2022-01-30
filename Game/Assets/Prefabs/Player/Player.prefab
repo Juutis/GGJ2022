@@ -191,8 +191,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9083436bd1cc533468f3bdf183f7252a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   particles: {fileID: 4980941114451644766}
   playerCamera: {fileID: 4980941114587018173}
+  pellets: 8
+  inaccuracyAngle: 10
+  dispersionAngle: 5
+  hitEffect: {fileID: 0}
+  bloodEffect: {fileID: 0}
 --- !u!114 &4980941113904572916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,8 +213,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handAnimation: {fileID: 1949205628577611952}
   particles: {fileID: 0}
+  hitParticles: {fileID: 0}
   playerCamera: {fileID: 4980941114587018173}
   isPlayer: 0
+  heavySwipePoint: {fileID: 0}
+  heavySwipeRadius: 0
 --- !u!114 &4980941113904572919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +248,7 @@ MonoBehaviour:
   viewOrigin: {fileID: 0}
   mesh: {fileID: 4980941115098415424}
   isPlayer: 0
+  raycastCollider: {fileID: 0}
 --- !u!1 &4980941113928532169
 GameObject:
   m_ObjectHideFlags: 0
@@ -5437,7 +5447,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 5
