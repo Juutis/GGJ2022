@@ -1162,6 +1162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b78e3bddd47634dac1b8222acdd144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseConfig: {fileID: 11400000, guid: effdd9682ea806141af5aa4e6f4101f5, type: 2}
   hideMouse: 1
   mouseSensitivity: 40
   cameraObject: {fileID: 1586109497686628267}

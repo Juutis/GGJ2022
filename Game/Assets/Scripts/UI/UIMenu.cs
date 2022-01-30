@@ -22,6 +22,8 @@ public class UIMenu : MonoBehaviour
     private UIMenuSelection restartSelection;
     [SerializeField]
     private UIMenuSelection startSelection;
+    [SerializeField]
+    private UIMenuSelection sensitivitySelection;
 
     private int selectorIndex = 0;
 
@@ -51,6 +53,9 @@ public class UIMenu : MonoBehaviour
     private Image imgConcept;
     [SerializeField]
     private GameObject mainMenuConcept;
+
+    [SerializeField]
+    private MouseConfig mouseConfig;
 
     private TargetEntityType currentFaction;
 
@@ -88,7 +93,14 @@ public class UIMenu : MonoBehaviour
             mainmenuSelection.gameObject.SetActive(false);
             restartSelection.gameObject.SetActive(false);
         }
-        else
+        if (!IsMainMenu && hideContinue) {
+            sensitivitySelection.gameObject.SetActive(false);
+        } else {
+            sensitivitySelection.gameObject.SetActive(true);
+            sensitivitySelection.SetValue(mouseConfig.Sensitivity);
+           selections.Add(sensitivitySelection);
+        }
+        if (!IsMainMenu)
         {
             selections.Add(mainmenuSelection);
             mainmenuSelection.gameObject.SetActive(true);
@@ -186,6 +198,14 @@ public class UIMenu : MonoBehaviour
         {
             Hide();
         }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Left();
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Right();
+        }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             MoveSelector(true);
@@ -197,6 +217,31 @@ public class UIMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             Select();
+        }
+    }
+
+
+
+    public void Left()
+    {
+        UISelectionType selectionType = CurrentSelection.SelectionType;
+        if (selectionType == UISelectionType.MouseSensitivity)
+        {
+            if (mouseConfig.DecreaseSensitivity()) {
+                sensitivitySelection.Left();
+            }
+            sensitivitySelection.SetValue(mouseConfig.Sensitivity);
+        }
+    }
+    public void Right()
+    {
+        UISelectionType selectionType = CurrentSelection.SelectionType;
+        if (selectionType == UISelectionType.MouseSensitivity)
+        {
+            if (mouseConfig.IncreaseSensitivity()) {
+                sensitivitySelection.Right();
+            }
+            sensitivitySelection.SetValue(mouseConfig.Sensitivity);
         }
     }
 
@@ -248,5 +293,6 @@ public enum UISelectionType
     Continue,
     Restart,
     MeinMenu,
-    Start
+    Start,
+    MouseSensitivity
 }
