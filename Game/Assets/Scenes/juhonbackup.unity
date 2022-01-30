@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12475566, g: 0.045013413, b: 0.015945418, a: 1}
+  m_IndirectSpecularColor: {r: 0.075134076, g: 0.057159577, b: 0.065368734, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -286,17 +286,17 @@ PrefabInstance:
     - target: {fileID: 4292580321867575460, guid: 1d059dcd6c0c70f42a2ac6e3711ad1f9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 432.7
+      value: 257.8516
       objectReference: {fileID: 0}
     - target: {fileID: 4292580321867575460, guid: 1d059dcd6c0c70f42a2ac6e3711ad1f9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.827
+      value: 21.2
       objectReference: {fileID: 0}
     - target: {fileID: 4292580321867575460, guid: 1d059dcd6c0c70f42a2ac6e3711ad1f9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 316.7
+      value: 312.4464
       objectReference: {fileID: 0}
     - target: {fileID: 4292580321867575460, guid: 1d059dcd6c0c70f42a2ac6e3711ad1f9,
         type: 3}
@@ -436,6 +436,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672466088342933727, guid: 14640c3873476d74795268636d79ef71,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672466088342933727, guid: 14640c3873476d74795268636d79ef71,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672466088342933727, guid: 14640c3873476d74795268636d79ef71,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672466088342933727, guid: 14640c3873476d74795268636d79ef71,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672466088342933727, guid: 14640c3873476d74795268636d79ef71,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672466088342933727, guid: 14640c3873476d74795268636d79ef71,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4158763229161699662, guid: 14640c3873476d74795268636d79ef71,
         type: 3}
