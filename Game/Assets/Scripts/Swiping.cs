@@ -84,8 +84,8 @@ public class Swiping : MonoBehaviour
         }
     }
 
-    public void IsEnemyInFront() {
-
+    public void PrepareLeap(bool leaping) {
+        handAnimation.Leap(leaping);
     }
 
     public List<Killable> CheckFront() {

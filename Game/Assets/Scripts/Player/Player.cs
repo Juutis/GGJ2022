@@ -138,9 +138,10 @@ public class Player : MonoBehaviour
                     chargeStarted = Time.time;
                 }
                 charging = true;
+                swiping.PrepareLeap(true);
             }
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && !charging)
             {
                 swiping.NormalSwipe();
             }
@@ -228,6 +229,7 @@ public class Player : MonoBehaviour
         if (leapOnGoing) {
             leapOnGoing = false;
             swiping.HeavySwipe();
+            swiping.PrepareLeap(false);
         }
     }
 }

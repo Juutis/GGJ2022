@@ -280,7 +280,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 1
 --- !u!1 &4559765618239575674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1188,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8797333000625706137}
     m_Modifications:
+    - target: {fileID: 1762020513679216445, guid: fc93f9e4bbaeff6498f350bbb508fcd4,
+        type: 3}
+      propertyPath: m_KeepAnimatorControllerStateOnDisable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3762483601751602913, guid: fc93f9e4bbaeff6498f350bbb508fcd4,
         type: 3}
       propertyPath: m_RootOrder
@@ -1262,6 +1267,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WolfHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351010373863654841, guid: fc93f9e4bbaeff6498f350bbb508fcd4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc93f9e4bbaeff6498f350bbb508fcd4, type: 3}

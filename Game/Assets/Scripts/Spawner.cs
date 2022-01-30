@@ -48,10 +48,14 @@ public class Spawner : MonoBehaviour
     }
 
     private void removeKilledKillables() {
+        var killablesToRemove = new List<Killable>();
         foreach(var killable in spawnedKillables) {
             if (!killable.IsAlive()) {
-                spawnedKillables.Remove(killable);
+                killablesToRemove.Add(killable);
             }
+        }
+        foreach(var killable in killablesToRemove) {
+            spawnedKillables.Remove(killable);
         }
     }
 
