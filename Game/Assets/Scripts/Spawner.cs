@@ -40,6 +40,7 @@ public class Spawner : MonoBehaviour
                 var obj = Instantiate(thingToSpawn);
                 obj.transform.position = hit.point + Vector3.up * 1.0f;
                 nextSpawn = Time.time + Random.Range(20f, 30f);
+                spawnedKillables.Add(obj);
             } else {
                 Debug.LogError("CAN'T SPAWN HERE", this);
             }
